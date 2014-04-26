@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@import CoreLocation;
 
 @interface WFAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -18,5 +19,6 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
++ (WFAppDelegate*)sharedAppDelegate;
 
 @end

@@ -7,8 +7,8 @@
 //
 
 #import "WFAppDelegate.h"
+#import "WFPageViewController.h"
 
-#import "WFMasterViewController.h"
 
 @implementation WFAppDelegate
 
@@ -16,22 +16,25 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+//+ es estático .
++ (WFAppDelegate*)sharedAppDelegate
+{           //Se denomina hacer castin, castear.
+    return (WFAppDelegate*)[[UIApplication sharedApplication] delegate];
+}
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-        UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-        splitViewController.delegate = (id)navigationController.topViewController;
-        
-        UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
-        WFMasterViewController *controller = (WFMasterViewController *)masterNavigationController.topViewController;
-        controller.managedObjectContext = self.managedObjectContext;
-    } else {
-        UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-        WFMasterViewController *controller = (WFMasterViewController *)navigationController.topViewController;
-        controller.managedObjectContext = self.managedObjectContext;
-    }
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    WFPageViewController *pageVC = [[WFPageViewController alloc] initWithNibName:nil bundle:nil];
+    
+    self.window.rootViewController = pageVC;
+    
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 							
@@ -102,7 +105,7 @@
     if (_managedObjectModel != nil) {
         return _managedObjectModel;
     }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Weatherfeed" withExtension:@"momd"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"WFCoreDataModel" withExtension:@"momd"];
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     return _managedObjectModel;
 }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="City" representedClassName="WFCity" syncable="YES">
+        <attribute name="addedDate" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idNumber" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="currentWeather" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CurrentWeather" inverseName="city" inverseEntity="CurrentWeather" syncable="YES"/>
+        <relationship name="dailyForecast" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Day" inverseName="city" inverseEntity="Day" syncable="YES"/>
+        <relationship name="hourlyForecast" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Hour" inverseName="city" inverseEntity="Hour" syncable="YES"/>
+    </entity>
+    <entity name="CurrentLocation" representedClassName="WFCurrentLocation" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updateDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="currentWeather" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CurrentWeather" inverseName="currentLocation" inverseEntity="CurrentWeather" syncable="YES"/>
+    </entity>
+    <entity name="CurrentWeather" representedClassName="WFCurrentWeather" parentEntity="WeatherInfo" syncable="YES">
+        <attribute name="sunrise" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="sunset" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="temp" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <relationship name="city" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="City" inverseName="currentWeather" inverseEntity="City" syncable="YES"/>
+        <relationship name="currentLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CurrentLocation" inverseName="currentWeather" inverseEntity="CurrentLocation" syncable="YES"/>
+    </entity>
+    <entity name="Day" representedClassName="WFDay" parentEntity="WeatherInfo" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dayTemp" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="eveningTemp" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="morningTemp" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="nightTemp" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="precipitation" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="tempMax" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="tempMin" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="city" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="dailyForecast" inverseEntity="City" syncable="YES"/>
+    </entity>
+    <entity name="Hour" representedClassName="WFHour" parentEntity="WeatherInfo" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="precipitation" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="temp" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <relationship name="city" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="hourlyForecast" inverseEntity="City" syncable="YES"/>
+    </entity>
+    <entity name="WeatherInfo" representedClassName="WFWeatherInfo" syncable="YES">
+        <attribute name="clouds" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="humidity" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="icon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pressure" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weatherId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="windDirection" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="windSpeed" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="City" positionX="-234" positionY="-0" width="128" height="163"/>
+        <element name="CurrentLocation" positionX="-236" positionY="-106" width="128" height="88"/>
+        <element name="CurrentWeather" positionX="90" positionY="-295" width="128" height="118"/>
+        <element name="Day" positionX="88" positionY="2" width="128" height="178"/>
+        <element name="Hour" positionX="90" positionY="-136" width="128" height="103"/>
+        <element name="WeatherInfo" positionX="-234" positionY="-297" width="128" height="163"/>
+    </elements>
+</model>
