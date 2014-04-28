@@ -324,8 +324,8 @@
 			isa = PBXGroup;
 			children = (
 				565D1AB718FCA52700FCB104 /* WFMainViewController.xib */,
-				565D1AB618FCA52700FCB104 /* WFMainViewController.m */,
 				565D1AB518FCA52700FCB104 /* WFMainViewController.h */,
+				565D1AB618FCA52700FCB104 /* WFMainViewController.m */,
 				E897725A190418C400425CE3 /* Cities Table View */,
 			);
 			name = Main;

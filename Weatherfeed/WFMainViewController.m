@@ -37,6 +37,9 @@ NSString * const WFWeatherEngineDidAddNewCityNotification = @"WFWeatherEngineDid
     self.citiesTVC.tableView = self.citiesTableView;
     [self.citiesTableView registerNib:[UINib nibWithNibName:@"WFCityCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"CityCell"];
     
+#warning Arreglar
+    self.citiesTableView.scrollsToTop = NO;
+    
     [self showCurrentWeatherData];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadCurrentWeatherData:) name:@"WFWeatherEngineDidUpdateLocationDataNotification" object:nil];

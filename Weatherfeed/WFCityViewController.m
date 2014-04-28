@@ -68,6 +68,9 @@
     self.daysTableView.contentInset = UIEdgeInsetsMake(130, 0, 44, 0);
     self.daysTableView.scrollIndicatorInsets = UIEdgeInsetsMake(130, 0, 44, 0);
     
+    self.hoursTableView.scrollsToTop = YES;
+    self.daysTableView.scrollsToTop = NO;
+    
     [self reloadCurrentWeatherData];
 }
 
@@ -114,6 +117,9 @@
 
 - (IBAction)periodSegmentControlChanged:(UISegmentedControl*)sender {
     BOOL showHours = sender.selectedSegmentIndex == 0;
+    
+    self.hoursTableView.scrollsToTop = showHours;
+    self.daysTableView.scrollsToTop = !showHours;
     
     if (showHours) {
         [self.hoursTableView setHidden:NO];
