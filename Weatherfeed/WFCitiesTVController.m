@@ -72,7 +72,6 @@
 {
     static NSString *cellIdentifier = @"CityCell";
     
-    
     WFCityCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     [self configureCell:cell atIndexPath:indexPath];

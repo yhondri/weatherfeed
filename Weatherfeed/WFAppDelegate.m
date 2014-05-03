@@ -9,7 +9,6 @@
 #import "WFAppDelegate.h"
 #import "WFPageViewController.h"
 
-//Soy una máquina, y guiye es un cabrón.
 
 @implementation WFAppDelegate
 

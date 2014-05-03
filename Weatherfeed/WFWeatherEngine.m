@@ -35,7 +35,7 @@ NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherE
     
     for (WFCity *city in fetchedObjects) {
         NSTimeInterval updateInterval = [[NSDate date] timeIntervalSinceDate:city.updatedDate];
-        if (updateInterval >= 1800) {
+        if (updateInterval >= 1800 || !city.updatedDate) {
             [WFWeatherEngine updateWeatherDataForCity:city];
         }
     }
@@ -59,7 +59,6 @@ NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherE
  */
 + (void)updateWeatherDataForCity:(WFCity *)city
 {
-    city.idNumber = @(3117735);
     NSLog(@"Updating weather for city: %@ ID: %@", city.name, city.idNumber);
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];

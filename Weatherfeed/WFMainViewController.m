@@ -14,6 +14,7 @@
 #import "WFCurrentWeather.h"
 #import "WFCitiesTVController.h"
 #import "WFCityViewController.h"
+#import "WFSearchCityViewController.h"
 
 #define degreesToRadians( degrees ) ( ( degrees ) / 180.0 * M_PI )
 NSString * const WFWeatherEngineDidAddNewCityNotification = @"WFWeatherEngineDidAddNewCityNotification";
@@ -37,20 +38,24 @@ NSString * const WFWeatherEngineDidAddNewCityNotification = @"WFWeatherEngineDid
     self.citiesTVC.tableView = self.citiesTableView;
     [self.citiesTableView registerNib:[UINib nibWithNibName:@"WFCityCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"CityCell"];
     
-#warning Arreglar
-    self.citiesTableView.scrollsToTop = NO;
-    
     [self showCurrentWeatherData];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadCurrentWeatherData:) name:@"WFWeatherEngineDidUpdateLocationDataNotification" object:nil];
     
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewDidAppear:animated];
+    self.citiesTableView.scrollsToTop = YES;
 }
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.citiesTableView.scrollsToTop = NO;
+}
+
 
 - (void)showCurrentWeatherData
 {
@@ -90,28 +95,29 @@ NSString * const WFWeatherEngineDidAddNewCityNotification = @"WFWeatherEngineDid
     return fetchedObjects;
 }
 
-- (IBAction)addCity:(id)sender {
-    
-    
+- (IBAction)addCity:(id)sender
+{
+    WFSearchCityViewController *vc = [[WFSearchCityViewController alloc] init];
+    [self presentViewController:vc animated:YES completion:nil];
   
-    if (!self.addCityButtonIsRotate) {
-        [UIView animateWithDuration:0.3 animations:^{
-            
-            self.citySearchBar.frame = CGRectMake(0, 0, 320, 44);
-            self.addCityButtonIsRotate = YES;
-            
-        } completion:^(BOOL finished) {
-           
-        }];
-    }
-    else{
-        [UIView animateWithDuration:0.3 animations:^{
-             self.citySearchBar.frame = CGRectMake(0, -44, 320, 44);
-        } completion:^(BOOL finished) {
-            self.addCityButtonIsRotate = NO;
-        }];
-        
-    }
+//    if (!self.addCityButtonIsRotate) {
+//        [UIView animateWithDuration:0.3 animations:^{
+//            
+//            self.citySearchBar.frame = CGRectMake(0, 0, 320, 44);
+//            self.addCityButtonIsRotate = YES;
+//            
+//        } completion:^(BOOL finished) {
+//           
+//        }];
+//    }
+//    else{
+//        [UIView animateWithDuration:0.3 animations:^{
+//             self.citySearchBar.frame = CGRectMake(0, -44, 320, 44);
+//        } completion:^(BOOL finished) {
+//            self.addCityButtonIsRotate = NO;
+//        }];
+//        
+//    }
     
 
 }

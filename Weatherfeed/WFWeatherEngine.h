@@ -15,6 +15,8 @@ extern NSString * const WFWeatherEngineDidUpdateLocationDataNotification;
 
 @interface WFWeatherEngine : NSObject
 
++ (NSData*)getDataFromURL:(NSURL*)url;
+
 + (void)updateWeatherDataForCity:(WFCity *)city;
 + (void)checkDataOfCities;
 + (void)updateWeatherDataForCurrentLocation:(WFCurrentLocation *)city;
