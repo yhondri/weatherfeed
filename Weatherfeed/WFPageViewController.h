@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CoreLocation/CoreLocation.h"
+#import "WFMainViewController.h"
 
 
-@interface WFPageViewController : UIViewController <UIPageViewControllerDataSource, CLLocationManagerDelegate>
+@interface WFPageViewController : UIViewController <UIPageViewControllerDataSource, WFMainViewControllerDelegate>
 
 @property (strong, nonatomic) UIPageViewController *pageController;
 

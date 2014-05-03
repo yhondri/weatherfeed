@@ -82,6 +82,8 @@
     
     [WFCitySearcher saveResult:result];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WFWeatherEngineDidAddNewCityNotification" object:nil];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

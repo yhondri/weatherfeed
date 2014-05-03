@@ -13,15 +13,14 @@
 #import "WFCurrentLocation.h"
 #import "WFCurrentWeather.h"
 #import "WFCitiesTVController.h"
-#import "WFCityViewController.h"
 #import "WFSearchCityViewController.h"
 
-#define degreesToRadians( degrees ) ( ( degrees ) / 180.0 * M_PI )
-NSString * const WFWeatherEngineDidAddNewCityNotification = @"WFWeatherEngineDidAddNewCityNotification";
 
 @interface WFMainViewController ()
 
 @property (strong, nonatomic) WFCitiesTVController *citiesTVC;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+
 @property (nonatomic, assign) BOOL addCityButtonIsRotate;
 
 @end
@@ -32,16 +31,25 @@ NSString * const WFWeatherEngineDidAddNewCityNotification = @"WFWeatherEngineDid
 {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(showCurrentWeatherData)
+                                                name:WFWeatherEngineDidUpdateLocationDataNotification
+                                              object:nil];
     
-    self.citySearchBar.delegate = self;
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    
+    [self.locationManager startUpdatingLocation];
+    
+    
     self.citiesTVC = [[WFCitiesTVController alloc] init];
     self.citiesTVC.tableView = self.citiesTableView;
+    self.citiesTableView.delegate = self;
     [self.citiesTableView registerNib:[UINib nibWithNibName:@"WFCityCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"CityCell"];
     
     [self showCurrentWeatherData];
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadCurrentWeatherData:) name:@"WFWeatherEngineDidUpdateLocationDataNotification" object:nil];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -59,9 +67,7 @@ NSString * const WFWeatherEngineDidAddNewCityNotification = @"WFWeatherEngineDid
 
 - (void)showCurrentWeatherData
 {
-    NSArray *currentData = [self dataOfCurreLocation];
-    
-    WFCurrentLocation *currentLocation = [currentData firstObject];
+    WFCity *currentLocation = [WFWeatherEngine currentLocationCity];
     WFCurrentWeather *currentWeather = [currentLocation currentWeather];
     
     NSString *capitalized = [[[currentLocation.name substringToIndex:1] uppercaseString] stringByAppendingString:[currentLocation.name substringFromIndex:1]];
@@ -71,109 +77,41 @@ NSString * const WFWeatherEngineDidAddNewCityNotification = @"WFWeatherEngineDid
 //    self.maxTempLabel.text = [NSString stringWithFormat:@"%@º", currentWeather.tempMax];
      self.currentTempLabel.text = [NSString stringWithFormat:@"%@º", currentWeather.temp];
     
+    UIImage *image = [UIImage imageNamed:currentWeather.icon];
+    [self.skyImageView setImage:image];
+
 }
 
-- (void)reloadCurrentWeatherData:(NSNotification *)notification
-{
-    NSLog(@"USER CHANGED LOCATION");
-    [self showCurrentWeatherData];
-}
-
-- (NSArray*)dataOfCurreLocation
-{
-    NSError *error = nil;
-    
-    NSManagedObjectContext *context = [[WFAppDelegate sharedAppDelegate]managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"CurrentLocation" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    
-    return fetchedObjects;
-}
 
 - (IBAction)addCity:(id)sender
 {
     WFSearchCityViewController *vc = [[WFSearchCityViewController alloc] init];
     [self presentViewController:vc animated:YES completion:nil];
-  
-//    if (!self.addCityButtonIsRotate) {
-//        [UIView animateWithDuration:0.3 animations:^{
-//            
-//            self.citySearchBar.frame = CGRectMake(0, 0, 320, 44);
-//            self.addCityButtonIsRotate = YES;
-//            
-//        } completion:^(BOOL finished) {
-//           
-//        }];
-//    }
-//    else{
-//        [UIView animateWithDuration:0.3 animations:^{
-//             self.citySearchBar.frame = CGRectMake(0, -44, 320, 44);
-//        } completion:^(BOOL finished) {
-//            self.addCityButtonIsRotate = NO;
-//        }];
-//        
-//    }
-    
-
 }
 
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [searchBar setShowsCancelButton:YES animated:NO];
-    return YES;
+    [self.delegate mainViewController:self didSelectCityAtIndex:indexPath.row];
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSString *cityName = searchBar.text;
+    NSLog(@"didFailWithError: %@", error);
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     
-    if (![WFCityViewController cityExistWithName:cityName] && ![cityName isEqualToString:@""]) {
-        
-        NSManagedObjectContext *context = [[WFAppDelegate sharedAppDelegate]managedObjectContext];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"City" inManagedObjectContext:context];
-        
-        WFCity *city = [[WFCity alloc]initWithEntity:entity insertIntoManagedObjectContext:context];
-        city.name = searchBar.text;
-        
-        [WFWeatherEngine updateWeatherDataForCity:city];
-        
-        [self.citySearchBar resignFirstResponder];
-        [UIView animateWithDuration:0.3 animations:^{
-            self.citySearchBar.frame = CGRectMake(0, -44, 320, 44);
-        } completion:^(BOOL finished) {
-            self.addCityButtonIsRotate = NO;
-        }];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:WFWeatherEngineDidAddNewCityNotification object:nil];
-
-    }
-    else{
-        UIAlertView *errorAlert = [[UIAlertView alloc]
-                                   initWithTitle:@"Error" message:@"La ciudad ya existe" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        
-        [errorAlert show];
-    }
-    
-    
+    [errorAlert show];
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    [UIView animateWithDuration:0.3 animations:^{
-        
-        [searchBar resignFirstResponder];
-        self.citySearchBar.frame = CGRectMake(0, -50, 320, 44);
-       
-    } completion:^(BOOL finished) {
-         self.addCityButtonIsRotate = NO;
-    }];
+    NSLog(@"Lat %f Long %f", manager.location.coordinate.latitude, manager.location.coordinate.longitude);
     
+    [WFWeatherEngine updateWeatherDataForLatitude:manager.location.coordinate.latitude
+                                        longitude:manager.location.coordinate.longitude];
+    [manager stopUpdatingLocation];
 }
-
 
 @end

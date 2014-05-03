@@ -28,20 +28,14 @@
 
 - (id)initWithCity:(WFCity*)city
 {
-    
     if (self = [super init]) {
         self.city = city;
         
         self.managedObjectContext = [[WFAppDelegate sharedAppDelegate] managedObjectContext];
         self.selectedRow = -1;
     }
+    
     return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
 }
 
 - (void)didReceiveMemoryWarning

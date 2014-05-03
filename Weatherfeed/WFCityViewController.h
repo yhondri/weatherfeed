@@ -14,8 +14,6 @@
 
 - (id)initWithCity:(WFCity*) city;
 
-+ (BOOL)cityExistWithName:(NSString *)city;
-
 @property NSUInteger pageIndex;
 
 @end

@@ -57,11 +57,13 @@
     
     self.hourlyTVC = [[WFHoursTVController alloc] initWithCity:self.city];
     self.hourlyTVC.tableView = self.hoursTableView;
-    [self.hoursTableView registerNib:[UINib nibWithNibName:@"WFHourCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"HourCell"];
+    [self.hoursTableView registerNib:[UINib nibWithNibName:@"WFHourCell" bundle:[NSBundle mainBundle]]
+              forCellReuseIdentifier:@"HourCell"];
     
     self.dailyTVC = [[WFDaysTVController alloc] initWithCity:self.city];
     self.dailyTVC.tableView = self.daysTableView;
-    [self.daysTableView registerNib:[UINib nibWithNibName:@"WFDayCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"DayCell"];
+    [self.daysTableView registerNib:[UINib nibWithNibName:@"WFDayCell" bundle:[NSBundle mainBundle]]
+             forCellReuseIdentifier:@"DayCell"];
     
     self.hoursTableView.contentInset = UIEdgeInsetsMake(130, 0, 44, 0);
     self.hoursTableView.scrollIndicatorInsets = UIEdgeInsetsMake(130, 0, 44, 0);
@@ -74,34 +76,6 @@
     [self reloadCurrentWeatherData];
 }
 
-/*! Método que comprueba si una ciudad existe.
- @params city string que contiene el nombre de la ciudad.
- @returns exist , boolean que será true si existe la ciudad o false en caso contrario.
- */
-+ (BOOL)cityExistWithName:(NSString *)city
-{
-    BOOL exist = FALSE;
-    
-    city = [city lowercaseString];
-    
-    NSManagedObjectContext *context = [[WFAppDelegate sharedAppDelegate]managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"City" inManagedObjectContext:context];
-    
-    [fetchRequest setEntity:entity];
-    
-    [fetchRequest setFetchBatchSize:1];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", city];
-    [fetchRequest setPredicate:predicate];
-    
-    NSArray *array = [context executeFetchRequest:fetchRequest error:Nil];
-    
-    if ([array count] > 0) {
-        exist = true;
-    }
-    return exist;
-}
 
 - (void)reloadCurrentWeatherData
 {

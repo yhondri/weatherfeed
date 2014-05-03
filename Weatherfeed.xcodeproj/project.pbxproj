@@ -54,7 +54,7 @@
 		E89772381903455B00425CE3 /* WFCurrentLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = E89772371903455B00425CE3 /* WFCurrentLocation.m */; };
 		E897723E1903A61600425CE3 /* WFDay.m in Sources */ = {isa = PBXBuildFile; fileRef = E897723D1903A61600425CE3 /* WFDay.m */; };
 		E897724C1903EE7500425CE3 /* 01d@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E89772401903EE7500425CE3 /* 01d@2x.png */; };
-		E897724D1903EE7500425CE3 /* 01m@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E89772411903EE7500425CE3 /* 01m@2x.png */; };
+		E897724D1903EE7500425CE3 /* 01n@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E89772411903EE7500425CE3 /* 01n@2x.png */; };
 		E897724E1903EE7500425CE3 /* 02d@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E89772421903EE7500425CE3 /* 02d@2x.png */; };
 		E897724F1903EE7500425CE3 /* 02n@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E89772431903EE7500425CE3 /* 02n@2x.png */; };
 		E89772501903EE7500425CE3 /* 03d@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E89772441903EE7500425CE3 /* 03d@2x.png */; };
@@ -147,7 +147,7 @@
 		E897723C1903A61600425CE3 /* WFDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFDay.h; sourceTree = "<group>"; };
 		E897723D1903A61600425CE3 /* WFDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFDay.m; sourceTree = "<group>"; };
 		E89772401903EE7500425CE3 /* 01d@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "01d@2x.png"; sourceTree = "<group>"; };
-		E89772411903EE7500425CE3 /* 01m@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "01m@2x.png"; sourceTree = "<group>"; };
+		E89772411903EE7500425CE3 /* 01n@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "01n@2x.png"; sourceTree = "<group>"; };
 		E89772421903EE7500425CE3 /* 02d@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "02d@2x.png"; sourceTree = "<group>"; };
 		E89772431903EE7500425CE3 /* 02n@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "02n@2x.png"; sourceTree = "<group>"; };
 		E89772441903EE7500425CE3 /* 03d@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "03d@2x.png"; sourceTree = "<group>"; };
@@ -331,7 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				E89772401903EE7500425CE3 /* 01d@2x.png */,
-				E89772411903EE7500425CE3 /* 01m@2x.png */,
+				E89772411903EE7500425CE3 /* 01n@2x.png */,
 				E89772421903EE7500425CE3 /* 02d@2x.png */,
 				E89772431903EE7500425CE3 /* 02n@2x.png */,
 				E89772441903EE7500425CE3 /* 03d@2x.png */,
@@ -484,7 +484,7 @@
 				E897724F1903EE7500425CE3 /* 02n@2x.png in Resources */,
 				E897724E1903EE7500425CE3 /* 02d@2x.png in Resources */,
 				E89772521903EE7500425CE3 /* 04d@2x.png in Resources */,
-				E897724D1903EE7500425CE3 /* 01m@2x.png in Resources */,
+				E897724D1903EE7500425CE3 /* 01n@2x.png in Resources */,
 				569BD05E189ABA4E00000965 /* Main_iPhone.storyboard in Resources */,
 				E89772531903EE7500425CE3 /* 04n@2x.png in Resources */,
 				564A449B1896BAE6009B07ED /* Images.xcassets in Resources */,

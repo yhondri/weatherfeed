@@ -19,6 +19,9 @@ extern NSString * const WFWeatherEngineDidUpdateLocationDataNotification;
 
 + (void)updateWeatherDataForCity:(WFCity *)city;
 + (void)checkDataOfCities;
-+ (void)updateWeatherDataForCurrentLocation:(WFCurrentLocation *)city;
+
++ (void)updateWeatherDataForLatitude:(double)latitude
+                           longitude:(double)longitude;
++ (WFCity*)currentLocationCity;
 
 @end

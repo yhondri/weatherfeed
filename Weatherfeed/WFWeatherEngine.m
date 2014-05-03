@@ -15,6 +15,8 @@
 #import "WFDay.h"
 
 
+
+NSString * const WFWeatherEngineLocationWeatherURL = @"http://api.openweathermap.org/data/2.5/find?lat=%f&lon=%f";
 NSString * const WFWeatherEngineCurrentWeatherURL = @"http://api.openweathermap.org/data/2.5/weather?id=%@&units=metric";
 NSString * const WFWeatherEngineHourlyForecastURL = @"http://api.openweathermap.org/data/2.5/forecast?id=%@&units=metric";
 NSString * const WFWeatherEngineDailyForecastURL = @"http://api.openweathermap.org/data/2.5/forecast/daily?id=%@&cnt=14&units=metric";
@@ -93,9 +95,9 @@ NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherE
                                               [self updateDailyForecastForCity:city withData:dailyForecastData];
                                           }
                                           
-                                          [[NSNotificationCenter defaultCenter] postNotificationName:WFWeatherEngineDidUpdateLocationDataNotification object:nil];
-                                          
                                           [city.managedObjectContext save:nil];
+                                          
+                                          [[NSNotificationCenter defaultCenter] postNotificationName:WFWeatherEngineDidUpdateNotification object:nil];
                                       });
                    });
     
@@ -220,81 +222,84 @@ NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherE
     }
 }
 
-
-
-
-+ (void)updateWeatherDataForCurrentLocation:(WFCurrentLocation *)currentLocation
++ (void)updateWeatherDataForLatitude:(double)latitude
+                           longitude:(double)longitude
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
                    {
+                       NSURL *locationWeatherURL = [NSURL URLWithString:[NSString stringWithFormat:WFWeatherEngineLocationWeatherURL, latitude, longitude]];
                        
-                       NSURL *currentWeatherURL = [NSURL URLWithString:[NSString stringWithFormat:WFWeatherEngineCurrentWeatherURL, currentLocation.name]];
+                       NSData *locationWeatherData = [self getDataFromURL:locationWeatherURL];
                        
-                       NSData *currentWeatherData = [self getDataFromURL:currentWeatherURL];
-                       
-                       NSLog(@"CURRENTWEATHER LOCATION DATA: %@---%@", currentLocation.name, currentWeatherURL);
                        dispatch_async(dispatch_get_main_queue(), ^
                                       {
                                           //Oculta el indicador de actividad en la status bar
                                           [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                                           
-                                          if (currentWeatherData == nil) {
+                                          if (locationWeatherData == nil) {
                                               NSLog(@"Error de descarga");
                                               
                                               return;
                                           }
                                           
                                           
-                                          [self fetchedDataWithCurrentWeather:currentWeatherData location:currentLocation];
+                                          NSDictionary *locationWeatherDictionary= [NSJSONSerialization JSONObjectWithData:locationWeatherData
+                                                                                                                   options:kNilOptions
+                                                                                                                     error:nil];
+                                          NSDictionary *cityDict = [locationWeatherDictionary[@"list"] firstObject];
                                           
+                                          
+                                          WFCity *city = [self currentLocationCity];
+                                          city.idNumber = cityDict[@"id"];
+                                          city.name = cityDict[@"name"];
+                                          city.country = cityDict[@"sys"][@"country"];
+                                          city.updatedDate = [NSDate date];
+                                          
+                                          
+                                          NSManagedObjectContext *context = city.managedObjectContext;
+                                          
+                                          WFCurrentWeather *currentWeahter = [NSEntityDescription insertNewObjectForEntityForName:@"CurrentWeather" inManagedObjectContext:context];
+                                          
+                                          currentWeahter.weatherId = @([cityDict[@"weather"][0][@"id"] integerValue]);
+                                          currentWeahter.text = cityDict[@"weather"][0][@"description"];
+                                          currentWeahter.icon = cityDict[@"weather"][0][@"icon"];
+                                          
+                                          currentWeahter.temp = cityDict[@"main"][@"temp"];
+                                          currentWeahter.humidity = cityDict[@"main"][@"humidity"];
+                                          currentWeahter.pressure = cityDict[@"main"][@"pressure"];
+                                          currentWeahter.windSpeed = cityDict[@"wind"][@"speed"];
+                                          currentWeahter.windDirection = cityDict[@"wind"][@"deg"];
+                                          currentWeahter.clouds = cityDict[@"clouds"][@"all"];
+                                          
+                                          city.currentWeather = currentWeahter;
+                                          
+                                          [context save:nil];
+                                          
+                                          [[NSNotificationCenter defaultCenter] postNotificationName:WFWeatherEngineDidUpdateLocationDataNotification object:nil];
                                       });
                    });
 }
 
-+(void)fetchedDataWithCurrentWeather:(NSData *)currentWeatherData
-                            location:(WFCurrentLocation *)currentLocation
++ (WFCity*)currentLocationCity
 {
-    NSError *error;
+    NSManagedObjectContext *context = [[WFAppDelegate sharedAppDelegate] managedObjectContext];
     
-    NSDictionary *currentWeatherDictionary= [NSJSONSerialization JSONObjectWithData:currentWeatherData options:kNilOptions error:&error];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"City"];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"addedDate == nil"]];
     
-    NSManagedObjectContext *context = [[WFAppDelegate sharedAppDelegate]managedObjectContext];
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:nil];
     
-    NSDate *currentDate = [NSDate date];
+    WFCity *city = [fetchedObjects firstObject];
     
-   // currentLocation.name = [currentWeatherDictionary[@"name"] lowercaseString];
-    currentLocation.updateDate = currentDate;
+    if (!city) {
+        city = [NSEntityDescription insertNewObjectForEntityForName:@"City" inManagedObjectContext:context];
+        
+        [context save:nil];
+    }
     
-    
-    WFCurrentWeather *currentWeahter;
-    
-    currentWeahter = [NSEntityDescription insertNewObjectForEntityForName:@"CurrentWeather" inManagedObjectContext:context];
-    
-    currentWeahter.clouds = @([currentWeatherDictionary[@"clouds"][@"all"] intValue]);
-    currentWeahter.humidity = @([currentWeatherDictionary[@"main"][@"humidity"] intValue]);
-    currentWeahter.pressure = @([currentWeatherDictionary[@"main"][@"pressure"] intValue]);
-    
-    NSDate *date;
-    
-    date = [NSDate dateWithTimeIntervalSince1970:[currentWeatherDictionary[@"sys"][@"sunrise"]integerValue]];
-    currentWeahter.sunrise = date;
-    
-    date = [NSDate dateWithTimeIntervalSince1970:[currentWeatherDictionary[@"sys"][@"sunset"]integerValue]];
-    currentWeahter.sunset = date;
-    
-    
-    CGFloat temp = [currentWeatherDictionary[@"main"][@"temp"] floatValue];
-    CGFloat windSpeed = [currentWeatherDictionary[@"wind"][@"speed"] floatValue];
-    currentWeahter.temp = @(temp);
-    currentWeahter.windSpeed = @(windSpeed);
-    
-    currentLocation.currentWeather = currentWeahter;
-    
-    [context save:&error];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:WFWeatherEngineDidUpdateLocationDataNotification object:nil];
+    return city;
 }
 
 @end

@@ -3,24 +3,18 @@
     <entity name="City" representedClassName="WFCity" syncable="YES">
         <attribute name="addedDate" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idNumber" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="currentWeather" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CurrentWeather" inverseName="city" inverseEntity="CurrentWeather" syncable="YES"/>
         <relationship name="dailyForecast" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Day" inverseName="city" inverseEntity="Day" syncable="YES"/>
         <relationship name="hourlyForecast" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Hour" inverseName="city" inverseEntity="Hour" syncable="YES"/>
     </entity>
-    <entity name="CurrentLocation" representedClassName="WFCurrentLocation" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="updateDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="currentWeather" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CurrentWeather" inverseName="currentLocation" inverseEntity="CurrentWeather" syncable="YES"/>
-    </entity>
     <entity name="CurrentWeather" representedClassName="WFCurrentWeather" parentEntity="WeatherInfo" syncable="YES">
         <attribute name="sunrise" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="sunset" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="temp" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <relationship name="city" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="City" inverseName="currentWeather" inverseEntity="City" syncable="YES"/>
-        <relationship name="currentLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CurrentLocation" inverseName="currentWeather" inverseEntity="CurrentLocation" syncable="YES"/>
     </entity>
     <entity name="Day" representedClassName="WFDay" parentEntity="WeatherInfo" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
@@ -51,10 +45,9 @@
     </entity>
     <elements>
         <element name="City" positionX="-234" positionY="-0" width="128" height="163"/>
-        <element name="CurrentLocation" positionX="-236" positionY="-106" width="128" height="88"/>
-        <element name="CurrentWeather" positionX="90" positionY="-295" width="128" height="118"/>
+        <element name="CurrentWeather" positionX="90" positionY="-256" width="128" height="103"/>
         <element name="Day" positionX="88" positionY="2" width="128" height="178"/>
         <element name="Hour" positionX="90" positionY="-136" width="128" height="103"/>
-        <element name="WeatherInfo" positionX="-234" positionY="-297" width="128" height="163"/>
+        <element name="WeatherInfo" positionX="-234" positionY="-208" width="128" height="163"/>
     </elements>
 </model>

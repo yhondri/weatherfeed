@@ -116,7 +116,7 @@
     
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-//    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"city == %@", self.city]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"addedDate != nil"]];
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".

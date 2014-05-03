@@ -7,13 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+@import CoreLocation;
 
-@interface WFMainViewController : UIViewController <UISearchBarDelegate>
+@class WFMainViewController;
+
+@protocol WFMainViewControllerDelegate <NSObject>
+- (void)mainViewController:(WFMainViewController*)mainViewController didSelectCityAtIndex:(NSInteger)index;
+@end
+
+
+@interface WFMainViewController : UIViewController <UITableViewDelegate, CLLocationManagerDelegate>
+
+@property (weak, nonatomic) id<WFMainViewControllerDelegate> delegate;
 
 @property NSUInteger pageIndex;
-
-- (IBAction)addCity:(id)sender;
-
 
 @property (weak, nonatomic) IBOutlet UILabel *cityNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *minTempLabel;
@@ -24,5 +31,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *addCityButton;
 
 @property (weak, nonatomic) IBOutlet UISearchBar *citySearchBar;
+
+
+- (IBAction)addCity:(id)sender;
 
 @end

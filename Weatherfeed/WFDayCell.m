@@ -13,8 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-
 @property (weak, nonatomic) IBOutlet UILabel *maxTempLabel;
 @property (weak, nonatomic) IBOutlet UILabel *minTempLabel;
 
