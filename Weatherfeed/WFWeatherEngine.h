@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const WFWeatherEngineDidUpdateNotification;
+extern NSString * const WFWeatherEngineDidUpdateCityNotification;
 extern NSString * const WFWeatherEngineDidUpdateLocationDataNotification;
 
 @class WFCity, WFCurrentLocation;

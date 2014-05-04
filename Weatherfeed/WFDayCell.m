@@ -58,8 +58,8 @@
     UIImage *image = [UIImage imageNamed:day.icon];
     [self.morningImageView setImage:image];
     
-    self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.tempMax floatValue]];
-    self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.tempMin floatValue]];
+    self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.maxTemp floatValue]];
+    self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.minTemp floatValue]];
     self.precipitationLabel.text = [NSString stringWithFormat:@"%.1f mm", [day.precipitation floatValue]];
     
     //    [self.windImageView setImageWithURL:[NSURL URLWithString:hour.windImage]];

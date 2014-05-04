@@ -22,6 +22,13 @@
     return (WFAppDelegate*)[[UIApplication sharedApplication] delegate];
 }
 
+- (void)setOperations:(NSInteger)operations
+{
+    _operations = operations;
+    
+    // Mientras haya una operación en curso mostrar el indicador de actividad en la barra de estado
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(operations > 0)];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

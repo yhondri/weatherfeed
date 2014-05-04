@@ -15,12 +15,12 @@
 #import "WFDay.h"
 
 
-NSString * const WFWeatherEngineLocationWeatherURL = @"http://api.openweathermap.org/data/2.5/find?lat=%f&lon=%f";
-NSString * const WFWeatherEngineCurrentWeatherURL = @"http://api.openweathermap.org/data/2.5/weather?id=%@&units=metric";
-NSString * const WFWeatherEngineHourlyForecastURL = @"http://api.openweathermap.org/data/2.5/forecast?id=%@&units=metric";
-NSString * const WFWeatherEngineDailyForecastURL = @"http://api.openweathermap.org/data/2.5/forecast/daily?id=%@&cnt=14&units=metric";
+NSString * const WFWeatherEngineLocationWeatherURL = @"http://api.openweathermap.org/data/2.5/find?lat=%f&lon=%f&units=metric&mode=json";
+NSString * const WFWeatherEngineCurrentWeatherURL = @"http://api.openweathermap.org/data/2.5/weather?id=%@&units=metric&mode=json";
+NSString * const WFWeatherEngineHourlyForecastURL = @"http://api.openweathermap.org/data/2.5/forecast?id=%@&units=metric&mode=json";
+NSString * const WFWeatherEngineDailyForecastURL = @"http://api.openweathermap.org/data/2.5/forecast/daily?id=%@&cnt=14&units=metric&mode=json";
 
-NSString * const WFWeatherEngineDidUpdateNotification = @"WFWeatherEngineDidUpdateNotification";
+NSString * const WFWeatherEngineDidUpdateCityNotification = @"WFWeatherEngineDidUpdateCity%@Notification";
 NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherEngineDidUpdateLocationDataNotification";
 
 @implementation WFWeatherEngine
@@ -62,7 +62,7 @@ NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherE
 {
     NSLog(@"Updating weather for city: %@ ID: %@", city.name, city.idNumber);
     
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [WFAppDelegate sharedAppDelegate].operations++;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
                    {
@@ -76,8 +76,7 @@ NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherE
                        
                        dispatch_async(dispatch_get_main_queue(), ^
                                       {
-                                          //Oculta el indicador de actividad en la status bar
-                                          [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                          [WFAppDelegate sharedAppDelegate].operations--;
                                           
                                           // If all data was obtained, the update is valid
                                           if (currentWeatherData && hourlyForecastData && dailyForecastData) {
@@ -96,7 +95,7 @@ NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherE
                                           
                                           [city.managedObjectContext save:nil];
                                           
-                                          [[NSNotificationCenter defaultCenter] postNotificationName:WFWeatherEngineDidUpdateNotification object:nil];
+                                          [[NSNotificationCenter defaultCenter] postNotificationName:[NSString stringWithFormat:WFWeatherEngineDidUpdateCityNotification, city.idNumber] object:nil];
                                       });
                    });
     
@@ -196,8 +195,8 @@ NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherE
         newDay.morningTemp = dayDict[@"temp"][@"morn"];
         newDay.dayTemp = dayDict[@"temp"][@"day"];
         newDay.eveningTemp = dayDict[@"temp"][@"eve"];
-        newDay.tempMin = dayDict[@"temp"][@"min"];
-        newDay.tempMax = dayDict[@"temp"][@"max"];
+        newDay.maxTemp = dayDict[@"temp"][@"min"];
+        newDay.minTemp = dayDict[@"temp"][@"max"];
         
         newDay.humidity = dayDict[@"humidity"];
         newDay.pressure = dayDict[@"pressure"];
@@ -224,7 +223,7 @@ NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherE
 + (void)updateWeatherDataForLatitude:(double)latitude
                            longitude:(double)longitude
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [WFAppDelegate sharedAppDelegate].operations++;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
                    {
@@ -234,8 +233,7 @@ NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherE
                        
                        dispatch_async(dispatch_get_main_queue(), ^
                                       {
-                                          //Oculta el indicador de actividad en la status bar
-                                          [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                          [WFAppDelegate sharedAppDelegate].operations--;
                                           
                                           if (locationWeatherData == nil) {
                                               NSLog(@"Error de descarga");

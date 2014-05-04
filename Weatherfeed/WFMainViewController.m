@@ -32,7 +32,7 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter]addObserver:self
-                                            selector:@selector(showCurrentWeatherData)
+                                            selector:@selector(reloadCurrentWeatherData)
                                                 name:WFWeatherEngineDidUpdateLocationDataNotification
                                               object:nil];
     
@@ -52,7 +52,7 @@
     self.citiesTableView.contentInset = UIEdgeInsetsMake(130, 0, 44, 0);
     self.citiesTableView.scrollIndicatorInsets = UIEdgeInsetsMake(130, 0, 44, 0);
     
-    [self showCurrentWeatherData];
+    [self reloadCurrentWeatherData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -68,7 +68,7 @@
 }
 
 
-- (void)showCurrentWeatherData
+- (void)reloadCurrentWeatherData
 {
     WFCity *currentLocation = [WFWeatherEngine currentLocationCity];
     WFCurrentWeather *currentWeather = [currentLocation currentWeather];

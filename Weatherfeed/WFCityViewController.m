@@ -22,8 +22,6 @@
 
 @property(strong,nonatomic) WFCity *city;
 
-@property (strong, nonatomic) WFHoursTVController *hourlyTVC;
-@property (strong, nonatomic) WFDaysTVController *dailyTVC;
 
 @property (weak, nonatomic) IBOutlet UILabel *cityName;
 @property (weak, nonatomic) IBOutlet UIView *currentWeatherView;
@@ -31,7 +29,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *currentTemp;
 @property (weak, nonatomic) IBOutlet UILabel *maxTempLabel;
 @property (weak, nonatomic) IBOutlet UILabel *minTempLabel;
+
+@property (strong, nonatomic) WFHoursTVController *hourlyTVC;
 @property (weak, nonatomic) IBOutlet UITableView *hoursTableView;
+@property (strong, nonatomic) WFDaysTVController *dailyTVC;
 @property (weak, nonatomic) IBOutlet UITableView *daysTableView;
 
 @end
@@ -54,7 +55,7 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self
                                             selector:@selector(reloadCurrentWeatherData)
-                                                name:WFWeatherEngineDidUpdateNotification
+                                                name:[NSString stringWithFormat:WFWeatherEngineDidUpdateCityNotification, self.city.idNumber]
                                               object:nil];
     
     self.hourlyTVC = [[WFHoursTVController alloc] initWithCity:self.city];
@@ -91,8 +92,8 @@
     self.currentWeatherIconImageView.image = [UIImage imageNamed:currentWeather.icon];
     
     WFDay *today = [self.dailyTVC.fetchedResultsController.fetchedObjects firstObject];
-    self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [today.tempMax floatValue]];
-    self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [today.tempMin floatValue]];
+    self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [today.maxTemp floatValue]];
+    self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [today.minTemp floatValue]];
 }
 
 - (IBAction)periodSegmentControlChanged:(UISegmentedControl*)sender {

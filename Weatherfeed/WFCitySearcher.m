@@ -11,13 +11,15 @@
 #import "WFAppDelegate.h"
 #import "WFCity.h"
 
-NSString * const WFCitySearcherSearchCityURL = @"http://api.openweathermap.org/data/2.5/find?q=%@&type=like&mode=json&units=metric";
+NSString * const WFCitySearcherSearchCityURL = @"http://api.openweathermap.org/data/2.5/find?q=%@&type=like&units=metric&mode=json";
 
 @implementation WFCitySearcher
 
 + (void)searchForCity:(NSString*)city
          onCompletion:(CitySearchResponseBlock)completionBlock
 {
+    [WFAppDelegate sharedAppDelegate].operations++;
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
                    {
                        NSURL *citySearchURL = [NSURL URLWithString:[NSString stringWithFormat:WFCitySearcherSearchCityURL, city]];
@@ -26,6 +28,8 @@ NSString * const WFCitySearcherSearchCityURL = @"http://api.openweathermap.org/d
                        
                        dispatch_async(dispatch_get_main_queue(), ^
                                       {
+                                          [WFAppDelegate sharedAppDelegate].operations--;
+                                          
                                           NSMutableArray *citiesFound;
                                           
                                           if (citySearchData) {

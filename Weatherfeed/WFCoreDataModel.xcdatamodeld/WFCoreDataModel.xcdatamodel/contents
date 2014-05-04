@@ -20,11 +20,11 @@
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="dayTemp" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="eveningTemp" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="maxTemp" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="minTemp" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="morningTemp" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="nightTemp" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="precipitation" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="tempMax" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="tempMin" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="city" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="dailyForecast" inverseEntity="City" syncable="YES"/>
     </entity>
     <entity name="Hour" representedClassName="WFHour" parentEntity="WeatherInfo" syncable="YES">

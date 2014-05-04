@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WFSearchCityViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface WFSearchCityViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @end

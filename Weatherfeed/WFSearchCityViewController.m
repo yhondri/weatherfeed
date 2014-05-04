@@ -20,37 +20,28 @@
 
 @implementation WFSearchCityViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
+    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 0, 0);
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"ResultCell"];
+    
+    [self.searchTextField becomeFirstResponder];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-- (IBAction)search:(id)sender
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [WFCitySearcher searchForCity:self.searchTextField.text
                      onCompletion:^(NSArray *citiesFound) {
                          self.citiesFound = citiesFound;
                          [self.tableView reloadData];
                      }];
+    
+    [textField resignFirstResponder];
+    
+    return NO;
 }
 
 - (IBAction)back:(id)sender

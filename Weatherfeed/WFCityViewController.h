@@ -10,7 +10,7 @@
 
 @class WFCity, WFCurrentWeather;
 
-@interface WFCityViewController : UIViewController <UISearchBarDelegate>
+@interface WFCityViewController : UIViewController
 
 - (id)initWithCity:(WFCity*) city;
 
