@@ -49,6 +49,9 @@
     self.citiesTableView.delegate = self;
     [self.citiesTableView registerNib:[UINib nibWithNibName:@"WFCityCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"CityCell"];
     
+    self.citiesTableView.contentInset = UIEdgeInsetsMake(130, 0, 44, 0);
+    self.citiesTableView.scrollIndicatorInsets = UIEdgeInsetsMake(130, 0, 44, 0);
+    
     [self showCurrentWeatherData];
 }
 
@@ -75,7 +78,7 @@
     self.cityNameLabel.text = capitalized;
 //    self.minTempLabel.text = [NSString stringWithFormat:@"%@º", currentWeather.tempMin];
 //    self.maxTempLabel.text = [NSString stringWithFormat:@"%@º", currentWeather.tempMax];
-     self.currentTempLabel.text = [NSString stringWithFormat:@"%@º", currentWeather.temp];
+     self.currentTempLabel.text = [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]];
     
     UIImage *image = [UIImage imageNamed:currentWeather.icon];
     [self.skyImageView setImage:image];
@@ -89,9 +92,15 @@
     [self presentViewController:vc animated:YES completion:nil];
 }
 
+- (IBAction)edit:(id)sender
+{
+    [self.citiesTableView setEditing:![self.citiesTableView isEditing] animated:YES];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     [self.delegate mainViewController:self didSelectCityAtIndex:indexPath.row];
 }
 

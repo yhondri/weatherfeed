@@ -85,14 +85,9 @@
     WFCity *city = [self.fetchedResultsController objectAtIndexPath:indexPath];
     WFCurrentWeather *currentWeather = city.currentWeather;
     
-    NSString *capitalizedCityName = [[[city.name substringToIndex:1] uppercaseString] stringByAppendingString:[city.name substringFromIndex:1]];
-    
-    cell.cityNameLabel.text = capitalizedCityName;
-    cell.tempLabel.text = [NSString stringWithFormat:@"%@º", currentWeather.temp];
-    
-    // cell.transform = CGAffineTransformMakeRotation(degreesToRadians(90));
-    
-    
+    cell.cityNameLabel.text = city.name;
+    cell.skyImageView.image = [UIImage imageNamed:currentWeather.icon];
+    cell.tempLabel.text =  [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]];
 }
 
 

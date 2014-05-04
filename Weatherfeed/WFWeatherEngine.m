@@ -15,7 +15,6 @@
 #import "WFDay.h"
 
 
-
 NSString * const WFWeatherEngineLocationWeatherURL = @"http://api.openweathermap.org/data/2.5/find?lat=%f&lon=%f";
 NSString * const WFWeatherEngineCurrentWeatherURL = @"http://api.openweathermap.org/data/2.5/weather?id=%@&units=metric";
 NSString * const WFWeatherEngineHourlyForecastURL = @"http://api.openweathermap.org/data/2.5/forecast?id=%@&units=metric";

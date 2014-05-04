@@ -29,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet UIView *currentWeatherView;
 @property (weak, nonatomic) IBOutlet UIImageView *currentWeatherIconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *currentTemp;
+@property (weak, nonatomic) IBOutlet UILabel *maxTempLabel;
+@property (weak, nonatomic) IBOutlet UILabel *minTempLabel;
 @property (weak, nonatomic) IBOutlet UITableView *hoursTableView;
 @property (weak, nonatomic) IBOutlet UITableView *daysTableView;
 
@@ -83,10 +85,14 @@
     
     WFCurrentWeather *currentWeather = self.city.currentWeather;
     
-    self.currentTemp.text = [NSString stringWithFormat:@"%.1fº", [currentWeather.temp floatValue]];
+    self.currentTemp.text = [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]];
     self.cityName.text = self.city.name;
     
     self.currentWeatherIconImageView.image = [UIImage imageNamed:currentWeather.icon];
+    
+    WFDay *today = [self.dailyTVC.fetchedResultsController.fetchedObjects firstObject];
+    self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [today.tempMax floatValue]];
+    self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [today.tempMin floatValue]];
 }
 
 - (IBAction)periodSegmentControlChanged:(UISegmentedControl*)sender {

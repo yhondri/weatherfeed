@@ -57,7 +57,7 @@
     UIImage *image = [UIImage imageNamed:hour.icon];
     [self.weatherImageView setImage:image];
     
-    self.tempLabel.text = [NSString stringWithFormat:@"%.1fº", [hour.temp floatValue]];
+    self.tempLabel.text = [NSString stringWithFormat:@"%.0fº", [hour.temp floatValue]];
     self.precipitationLabel.text = [NSString stringWithFormat:@"%.1f mm", [hour.precipitation floatValue]];
     
 //    [self.windImageView setImageWithURL:[NSURL URLWithString:hour.windImage]];

@@ -12,6 +12,8 @@
                 <outlet property="currentWeatherView" destination="uh8-QV-AZt" id="b31-jR-MpH"/>
                 <outlet property="daysTableView" destination="DUZ-bO-oui" id="nLK-Sx-ECD"/>
                 <outlet property="hoursTableView" destination="Wfe-FO-0pV" id="FfG-ta-VRx"/>
+                <outlet property="maxTempLabel" destination="x0Q-Ci-64S" id="ETd-g1-U7E"/>
+                <outlet property="minTempLabel" destination="Cvw-Fd-zX2" id="meA-8a-E5E"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -37,7 +39,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="130" id="a3r-Yg-LIQ"/>
                     </constraints>
-                    <color key="barTintColor" red="0.14948959610000001" green="0.65971210499999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="barTintColor" red="0.1058823529" green="0.60784313729999995" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                     <items>
                         <navigationItem id="sQC-mv-sGh"/>
                     </items>
@@ -79,15 +81,15 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.14948959610000001" green="0.65971210499999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Im-Vv-vXL">
                     <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <items>
+                        <barButtonItem width="69" style="plain" systemItem="fixedSpace" id="eEn-ma-wZX"/>
                         <barButtonItem style="plain" id="1qm-wZ-ddg">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="Ts0-1Y-cXO">
-                                <rect key="frame" x="16" y="8" width="123" height="29"/>
+                                <rect key="frame" x="85" y="8" width="150" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Horas"/>
@@ -102,6 +104,7 @@
                 </toolbar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="tintColor" red="0.1058823529" green="0.60784313729999995" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="QAP-VT-2mD" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="0lW-p6-fZI"/>
                 <constraint firstItem="QAP-VT-2mD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ZAJ-fY-sv1"/>

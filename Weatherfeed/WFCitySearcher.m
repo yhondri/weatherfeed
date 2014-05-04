@@ -64,6 +64,8 @@ NSString * const WFCitySearcherSearchCityURL = @"http://api.openweathermap.org/d
     newCity.country = result.country;
     
     [context save:nil];
+    
+    [WFWeatherEngine updateWeatherDataForCity:newCity];
 }
 
 @end
