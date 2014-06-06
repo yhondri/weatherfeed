@@ -8,6 +8,7 @@
 
 #import "WFSearchCityViewController.h"
 #import "WFCitySearcher.h"
+#import "WFCityCell.h"
 
 @interface WFSearchCityViewController ()
 
@@ -26,7 +27,7 @@
     
     self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 0, 0);
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"ResultCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"WFCityCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"ResultCell"];
     
     [self.searchTextField becomeFirstResponder];
 }
@@ -58,11 +59,10 @@
 {
     static NSString *cellIdentifier = @"ResultCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    WFCityCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     WFSearchResult *city = self.citiesFound[indexPath.row];
-    
-    cell.textLabel.text = city.description;
+    [cell setSearchResult:city];
     
     return cell;
 }

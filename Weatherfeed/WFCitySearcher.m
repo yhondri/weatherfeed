@@ -20,6 +20,8 @@ NSString * const WFCitySearcherSearchCityURL = @"http://api.openweathermap.org/d
 {
     [WFAppDelegate sharedAppDelegate].operations++;
     
+    city = [city stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
                    {
                        NSURL *citySearchURL = [NSURL URLWithString:[NSString stringWithFormat:WFCitySearcherSearchCityURL, city]];
@@ -46,6 +48,9 @@ NSString * const WFCitySearcherSearchCityURL = @"http://api.openweathermap.org/d
                                                   newCity.name = cityDict[@"name"];
                                                   newCity.country = cityDict[@"sys"][@"country"];
                                                   newCity.coordinates = CLLocationCoordinate2DMake([cityDict[@"coord"][@"lat"] doubleValue], [cityDict[@"coord"][@"lon"] doubleValue]);
+                                                  
+                                                  newCity.icon = cityDict[@"weather"][0][@"icon"];
+                                                  newCity.temp = cityDict[@"main"][@"temp"];
                                                   
                                                   [citiesFound addObject:newCity];
                                               }

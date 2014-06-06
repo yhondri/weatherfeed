@@ -6,15 +6,19 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WFCityViewController">
             <connections>
-                <outlet property="cityName" destination="1v4-oO-opG" id="OFf-8X-VHd"/>
-                <outlet property="currentTemp" destination="bf3-Jf-g0m" id="vyb-aV-sE0"/>
-                <outlet property="currentWeatherIconImageView" destination="LBJ-OX-YiS" id="3W8-QM-Wl3"/>
+                <outlet property="cityNameLabel" destination="1v4-oO-opG" id="ztd-Ki-zBH"/>
+                <outlet property="currentTempLabel" destination="bf3-Jf-g0m" id="rHM-ec-aF0"/>
                 <outlet property="currentWeatherView" destination="uh8-QV-AZt" id="b31-jR-MpH"/>
                 <outlet property="daysTableView" destination="DUZ-bO-oui" id="nLK-Sx-ECD"/>
                 <outlet property="hoursTableView" destination="Wfe-FO-0pV" id="FfG-ta-VRx"/>
+                <outlet property="humidityLabel" destination="M4I-wP-TaJ" id="cM5-qW-39S"/>
                 <outlet property="maxTempLabel" destination="x0Q-Ci-64S" id="ETd-g1-U7E"/>
                 <outlet property="minTempLabel" destination="Cvw-Fd-zX2" id="meA-8a-E5E"/>
+                <outlet property="moreInfoView" destination="3wQ-Jr-sdm" id="qD2-aG-Vec"/>
+                <outlet property="pressureLabel" destination="IPL-eD-Z6Y" id="60o-7e-fUe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="weatherImageView" destination="LBJ-OX-YiS" id="xLz-zg-oi0"/>
+                <outlet property="windSpeedLabel" destination="AMA-zr-9xY" id="T6z-UA-gbv"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -80,7 +84,59 @@
                             <color key="textColor" red="0.55538054439999995" green="0.93721648189999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3wQ-Jr-sdm">
+                            <rect key="frame" x="110" y="52" width="140" height="69"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Humedad:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ts0-TC-PVj">
+                                    <rect key="frame" x="0.0" y="0.0" width="87" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <color key="textColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Presión:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kAj-yf-fDE">
+                                    <rect key="frame" x="0.0" y="24" width="87" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <color key="textColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Viento:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oA3-jL-uuP">
+                                    <rect key="frame" x="0.0" y="48" width="87" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <color key="textColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="120" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="M4I-wP-TaJ">
+                                    <rect key="frame" x="85" y="0.0" width="50" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="120" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="IPL-eD-Z6Y">
+                                    <rect key="frame" x="85" y="24" width="50" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="120" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="AMA-zr-9xY">
+                                    <rect key="frame" x="85" y="48" width="50" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <gestureRecognizers/>
+                        </view>
                     </subviews>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="kWo-Pp-M2T" appends="YES" id="ceB-Df-uXr"/>
+                    </connections>
                 </view>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Im-Vv-vXL">
                     <rect key="frame" x="0.0" y="524" width="320" height="44"/>
@@ -113,6 +169,11 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
+        <tapGestureRecognizer id="kWo-Pp-M2T">
+            <connections>
+                <action selector="showMoreInfo:" destination="-1" id="2SI-6r-R7X"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="10n.png" width="250" height="250"/>

@@ -16,6 +16,7 @@
 @interface WFPageViewController ()
 
 @property (strong, nonatomic) NSArray *cities;
+@property (strong, nonatomic) NSMutableArray *viewControllers;
 @property (assign) BOOL locationFromUser;
 
 @end
@@ -35,6 +36,7 @@
                                                                         options:nil];
     
     self.pageController.dataSource = self;
+    self.pageController.delegate = self;
     [[self.pageController view] setFrame:[[self view] bounds]];
     
     [self addChildViewController:self.pageController];
@@ -64,13 +66,20 @@
 {
     [self reloadCities];
     
-    [self.pageController setViewControllers:@[[self viewControllerAtIndex:0]]
+    self.viewControllers = [@[] mutableCopy];
+    [self.viewControllers addObject:[self viewControllerAtIndex:0]];
+    for (int i = 0; i<[self.cities count]; i++) {
+        [self.viewControllers addObject:[self viewControllerAtIndex:i+1]];
+    }
+    
+    [self.pageController setViewControllers:@[self.viewControllers[0]]
                                   direction:UIPageViewControllerNavigationDirectionForward
                                    animated:NO
                                  completion:nil];
+    self.pageController.doubleSided = YES;
 }
 
-- (void)mainViewController:(WFMainViewController *)mainViewController
+- (void)viewController:(WFViewController *)viewController
       didSelectCityAtIndex:(NSInteger)index
 {
     [self.pageController setViewControllers:@[[self viewControllerAtIndex:index+1]]
@@ -83,22 +92,21 @@
 
 - (UIViewController*)viewControllerAtIndex:(NSUInteger)index
 {
+    WFViewController *viewController;
+    
     if (index == 0) {
-        WFMainViewController *mainViewController = [[WFMainViewController alloc] init];
-        mainViewController.delegate = self;
-        
-        return mainViewController;
+        viewController = [[WFMainViewController alloc] init];
     }
     else {
         WFCity *city = self.cities[index-1];
-        
-        WFCityViewController *cityViewController = [[WFCityViewController alloc] initWithCity:city];
-//        [cityViewController setCity:city];
-        
-        cityViewController.pageIndex = index;
-        
-        return cityViewController;
+        viewController = [[WFCityViewController alloc] initWithCity:city];
     }
+    
+    viewController.delegate = self;
+    viewController.pageIndex = index;
+    
+    
+    return viewController;
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
@@ -107,14 +115,7 @@
         return nil;
     }
     
-    NSUInteger index;
-    
-    if ([viewController isKindOfClass:[WFMainViewController class]]) {
-        index = 0;
-    }
-    else {
-        index = ((WFCityViewController*) viewController).pageIndex;
-    }
+    NSUInteger index = ((WFViewController*) viewController).pageIndex;
     
     if (index == 0) {
         index = [self.cities count];
@@ -123,7 +124,7 @@
         index--;
     }
     
-    return [self viewControllerAtIndex:index];
+    return self.viewControllers[index];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
@@ -132,14 +133,7 @@
         return nil;
     }
     
-    NSUInteger index;
-    
-    if ([viewController isKindOfClass:[WFMainViewController class]]) {
-        index = 0;
-    }
-    else {
-        index = ((WFCityViewController*) viewController).pageIndex;
-    }
+    NSUInteger index = ((WFViewController*) viewController).pageIndex;
     
     if (index == [self.cities count]) {
         index = 0;
@@ -148,8 +142,7 @@
         index++;
     }
     
-    return [self viewControllerAtIndex:index];
+    return self.viewControllers[index];
 }
-
 
 @end

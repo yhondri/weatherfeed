@@ -47,6 +47,7 @@
 		E877556D1912EC57009AFD0B /* WFSearchCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E877556B1912EC57009AFD0B /* WFSearchCityViewController.m */; };
 		E877556E1912EC57009AFD0B /* WFSearchCityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E877556C1912EC57009AFD0B /* WFSearchCityViewController.xib */; };
 		E877557519169C26009AFD0B /* WFDay.m in Sources */ = {isa = PBXBuildFile; fileRef = E877557419169C26009AFD0B /* WFDay.m */; };
+		E87755781916FEDA009AFD0B /* WFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E87755771916FEDA009AFD0B /* WFViewController.m */; };
 		E897722C1903455B00425CE3 /* WFWeatherInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E897722B1903455B00425CE3 /* WFWeatherInfo.m */; };
 		E897722F1903455B00425CE3 /* WFHour.m in Sources */ = {isa = PBXBuildFile; fileRef = E897722E1903455B00425CE3 /* WFHour.m */; };
 		E89772321903455B00425CE3 /* WFCity.m in Sources */ = {isa = PBXBuildFile; fileRef = E89772311903455B00425CE3 /* WFCity.m */; };
@@ -134,6 +135,8 @@
 		E877556C1912EC57009AFD0B /* WFSearchCityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WFSearchCityViewController.xib; sourceTree = "<group>"; };
 		E877557319169C26009AFD0B /* WFDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFDay.h; sourceTree = "<group>"; };
 		E877557419169C26009AFD0B /* WFDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFDay.m; sourceTree = "<group>"; };
+		E87755761916FEDA009AFD0B /* WFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFViewController.h; sourceTree = "<group>"; };
+		E87755771916FEDA009AFD0B /* WFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFViewController.m; sourceTree = "<group>"; };
 		E897722A1903455B00425CE3 /* WFWeatherInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFWeatherInfo.h; sourceTree = "<group>"; };
 		E897722B1903455B00425CE3 /* WFWeatherInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFWeatherInfo.m; sourceTree = "<group>"; };
 		E897722D1903455B00425CE3 /* WFHour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFHour.h; sourceTree = "<group>"; };
@@ -291,6 +294,8 @@
 			children = (
 				5624363B18F3091E00268032 /* WFPageViewController.h */,
 				5624363C18F3091E00268032 /* WFPageViewController.m */,
+				E87755761916FEDA009AFD0B /* WFViewController.h */,
+				E87755771916FEDA009AFD0B /* WFViewController.m */,
 				E8977258190418A700425CE3 /* Main */,
 				E877556F1913119E009AFD0B /* Search */,
 				E8977259190418B100425CE3 /* City */,
@@ -515,6 +520,7 @@
 				566276C618F5C8EA00A891E5 /* WFHourCell.m in Sources */,
 				564A44861896BAE6009B07ED /* main.m in Sources */,
 				E80176E61911A9C4004EE6B6 /* WFCitySearcher.m in Sources */,
+				E87755781916FEDA009AFD0B /* WFViewController.m in Sources */,
 				5624363D18F3091E00268032 /* WFPageViewController.m in Sources */,
 				5624516918D0E46B00C65F70 /* WFCoreDataModel.xcdatamodeld in Sources */,
 				E89772351903455B00425CE3 /* WFCurrentWeather.m in Sources */,

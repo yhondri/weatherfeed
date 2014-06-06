@@ -83,11 +83,8 @@
 - (void)configureCell:(WFCityCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     WFCity *city = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    WFCurrentWeather *currentWeather = city.currentWeather;
     
-    cell.cityNameLabel.text = city.name;
-    cell.skyImageView.image = [UIImage imageNamed:currentWeather.icon];
-    cell.tempLabel.text =  [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]];
+    [cell setCity:city];
 }
 
 

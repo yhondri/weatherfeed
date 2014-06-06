@@ -31,6 +31,7 @@ NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherE
     NSManagedObjectContext *context = [[WFAppDelegate sharedAppDelegate] managedObjectContext];
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"City"];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"addedDate != nil"]];
     
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:nil];
     
@@ -223,6 +224,13 @@ NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherE
 + (void)updateWeatherDataForLatitude:(double)latitude
                            longitude:(double)longitude
 {
+    WFCity *city = [self currentLocationCity];
+    
+    NSTimeInterval updateInterval = [[NSDate date] timeIntervalSinceDate:city.updatedDate];
+    if (updateInterval < 1800) {
+        return;
+    }
+    
     [WFAppDelegate sharedAppDelegate].operations++;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
@@ -247,8 +255,8 @@ NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherE
                                                                                                                      error:nil];
                                           NSDictionary *cityDict = [locationWeatherDictionary[@"list"] firstObject];
                                           
+                                          NSLog(@"Location %@", cityDict);
                                           
-                                          WFCity *city = [self currentLocationCity];
                                           city.idNumber = cityDict[@"id"];
                                           city.name = cityDict[@"name"];
                                           city.country = cityDict[@"sys"][@"country"];

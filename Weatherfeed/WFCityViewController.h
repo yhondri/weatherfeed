@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WFViewController.h"
 
 @class WFCity, WFCurrentWeather;
 
-@interface WFCityViewController : UIViewController
+@interface WFCityViewController : WFViewController
 
 - (id)initWithCity:(WFCity*) city;
-
-@property NSUInteger pageIndex;
 
 @end

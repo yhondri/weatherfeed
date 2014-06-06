@@ -23,12 +23,17 @@
 @property(strong,nonatomic) WFCity *city;
 
 
-@property (weak, nonatomic) IBOutlet UILabel *cityName;
+@property (weak, nonatomic) IBOutlet UILabel *cityNameLabel;
 @property (weak, nonatomic) IBOutlet UIView *currentWeatherView;
-@property (weak, nonatomic) IBOutlet UIImageView *currentWeatherIconImageView;
-@property (weak, nonatomic) IBOutlet UILabel *currentTemp;
+@property (weak, nonatomic) IBOutlet UIImageView *weatherImageView;
+@property (weak, nonatomic) IBOutlet UILabel *currentTempLabel;
 @property (weak, nonatomic) IBOutlet UILabel *maxTempLabel;
 @property (weak, nonatomic) IBOutlet UILabel *minTempLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *moreInfoView;
+@property (weak, nonatomic) IBOutlet UILabel *humidityLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pressureLabel;
+@property (weak, nonatomic) IBOutlet UILabel *windSpeedLabel;
 
 @property (strong, nonatomic) WFHoursTVController *hourlyTVC;
 @property (weak, nonatomic) IBOutlet UITableView *hoursTableView;
@@ -86,10 +91,14 @@
     
     WFCurrentWeather *currentWeather = self.city.currentWeather;
     
-    self.currentTemp.text = [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]];
-    self.cityName.text = self.city.name;
+    self.currentTempLabel.text = [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]];
+    self.cityNameLabel.text = self.city.name;
     
-    self.currentWeatherIconImageView.image = [UIImage imageNamed:currentWeather.icon];
+    self.weatherImageView.image = [UIImage imageNamed:currentWeather.icon];
+    
+    self.humidityLabel.text = [NSString stringWithFormat:@"%.0f%%", [currentWeather.humidity floatValue]];
+    self.pressureLabel.text = [NSString stringWithFormat:@"%.1f psi", [currentWeather.pressure floatValue]];
+    self.windSpeedLabel.text = [NSString stringWithFormat:@"%.0f km/h", [currentWeather.windSpeed floatValue]];
     
     WFDay *today = [self.dailyTVC.fetchedResultsController.fetchedObjects firstObject];
     self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [today.maxTemp floatValue]];
@@ -117,5 +126,16 @@
                      }];
 }
 
+- (IBAction)showMoreInfo:(id)sender
+{
+    CGFloat infoAlpha = self.moreInfoView.alpha;
+    
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         self.moreInfoView.alpha = infoAlpha? 0: 1;
+                         self.currentTempLabel.alpha = infoAlpha? 1: 0;
+                     }
+                     completion:nil];
+}
 
 @end

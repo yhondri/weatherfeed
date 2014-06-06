@@ -70,6 +70,8 @@
 
 - (void)reloadCurrentWeatherData
 {
+    NSLog(@"Reloading current weather");
+    
     WFCity *currentLocation = [WFWeatherEngine currentLocationCity];
     WFCurrentWeather *currentWeather = [currentLocation currentWeather];
     
@@ -101,7 +103,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [self.delegate mainViewController:self didSelectCityAtIndex:indexPath.row];
+    [self.delegate viewController:self didSelectCityAtIndex:indexPath.row];
 }
 
 

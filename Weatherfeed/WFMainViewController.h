@@ -8,29 +8,16 @@
 
 #import <UIKit/UIKit.h>
 @import CoreLocation;
+#import "WFViewController.h"
 
 @class WFMainViewController;
 
-@protocol WFMainViewControllerDelegate <NSObject>
-- (void)mainViewController:(WFMainViewController*)mainViewController didSelectCityAtIndex:(NSInteger)index;
-@end
-
-
-@interface WFMainViewController : UIViewController <UITableViewDelegate, CLLocationManagerDelegate>
-
-@property (weak, nonatomic) id<WFMainViewControllerDelegate> delegate;
-
-@property NSUInteger pageIndex;
+@interface WFMainViewController : WFViewController <UITableViewDelegate, CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *cityNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *minTempLabel;
-@property (weak, nonatomic) IBOutlet UILabel *maxTempLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentTempLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *skyImageView;
 @property (weak, nonatomic) IBOutlet UITableView *citiesTableView;
-@property (weak, nonatomic) IBOutlet UIButton *addCityButton;
-
-@property (weak, nonatomic) IBOutlet UISearchBar *citySearchBar;
 
 
 - (IBAction)addCity:(id)sender;

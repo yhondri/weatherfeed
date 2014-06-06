@@ -10,7 +10,7 @@
 #import "WFMainViewController.h"
 
 
-@interface WFPageViewController : UIViewController <UIPageViewControllerDataSource, WFMainViewControllerDelegate>
+@interface WFPageViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate, WFViewControllerDelegate>
 
 @property (strong, nonatomic) UIPageViewController *pageController;
 

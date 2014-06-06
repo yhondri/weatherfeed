@@ -15,5 +15,7 @@
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *country;
 @property (nonatomic) CLLocationCoordinate2D coordinates;
+@property (strong, nonatomic) NSNumber *temp;
+@property (strong, nonatomic) NSString *icon;
 
 @end
