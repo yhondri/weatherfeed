@@ -196,8 +196,8 @@ NSString * const WFWeatherEngineDidUpdateLocationDataNotification = @"WFWeatherE
         newDay.morningTemp = dayDict[@"temp"][@"morn"];
         newDay.dayTemp = dayDict[@"temp"][@"day"];
         newDay.eveningTemp = dayDict[@"temp"][@"eve"];
-        newDay.maxTemp = dayDict[@"temp"][@"min"];
-        newDay.minTemp = dayDict[@"temp"][@"max"];
+        newDay.maxTemp = dayDict[@"temp"][@"max"];
+        newDay.minTemp = dayDict[@"temp"][@"min"];
         
         newDay.humidity = dayDict[@"humidity"];
         newDay.pressure = dayDict[@"pressure"];

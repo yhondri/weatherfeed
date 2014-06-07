@@ -22,6 +22,10 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
 @property (nonatomic, assign) BOOL addCityButtonIsRotate;
+@property (weak, nonatomic) IBOutlet UIView *moreInfoView;
+@property (weak, nonatomic) IBOutlet UILabel *humidityLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pressureLabel;
+@property (weak, nonatomic) IBOutlet UILabel *windSpeedLabel;
 
 @end
 
@@ -84,6 +88,11 @@
     
     UIImage *image = [UIImage imageNamed:currentWeather.icon];
     [self.skyImageView setImage:image];
+    
+    self.humidityLabel.text = [NSString stringWithFormat:@"%.0f%%", [currentWeather.humidity floatValue]];
+    self.pressureLabel.text = [NSString stringWithFormat:@"%.1f psi", [currentWeather.pressure floatValue]];
+    self.windSpeedLabel.text = [NSString stringWithFormat:@"%.0f km/h", [currentWeather.windSpeed floatValue]];
+    
 
 }
 
@@ -106,14 +115,15 @@
     [self.delegate viewController:self didSelectCityAtIndex:indexPath.row];
 }
 
-
+#warning Activar mensaje de error, al no poder conseguir tu localización.
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"didFailWithError: %@", error);
+  /*  NSLog(@"didFailWithError: %@", error);
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     
     [errorAlert show];
+   */
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -124,5 +134,18 @@
                                         longitude:manager.location.coordinate.longitude];
     [manager stopUpdatingLocation];
 }
+
+- (IBAction)showMoreInfo:(id)sender {
+    
+    CGFloat infoAlpha = self.moreInfoView.alpha;
+    
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         self.moreInfoView.alpha = infoAlpha? 0: 1;
+                         self.currentTempLabel.alpha = infoAlpha? 1: 0;
+                     }
+                     completion:nil];
+}
+
 
 @end

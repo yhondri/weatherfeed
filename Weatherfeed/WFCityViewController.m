@@ -40,6 +40,7 @@
 @property (strong, nonatomic) WFDaysTVController *dailyTVC;
 @property (weak, nonatomic) IBOutlet UITableView *daysTableView;
 
+
 @end
 
 @implementation WFCityViewController

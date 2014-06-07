@@ -64,6 +64,9 @@
     
     //    [self.windImageView setImageWithURL:[NSURL URLWithString:hour.windImage]];
     self.windLabel.text = [NSString stringWithFormat:@"%@ km/h", day.windSpeed];
+    
+    self.afternoonTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.morningTemp floatValue]];
+    self.eveningTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.eveningTemp floatValue]];
 }
 
 @end
