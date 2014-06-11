@@ -14,7 +14,7 @@
 #import "WFCurrentWeather.h"
 #import "WFCitiesTVController.h"
 #import "WFSearchCityViewController.h"
-
+#import "Reachability.h"
 
 @interface WFMainViewController ()
 
@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *humidityLabel;
 @property (weak, nonatomic) IBOutlet UILabel *pressureLabel;
 @property (weak, nonatomic) IBOutlet UILabel *windSpeedLabel;
+
 
 @end
 
@@ -57,6 +58,8 @@
     self.citiesTableView.scrollIndicatorInsets = UIEdgeInsetsMake(130, 0, 44, 0);
     
     [self reloadCurrentWeatherData];
+    
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -84,7 +87,6 @@
     self.cityNameLabel.text = capitalized;
 //    self.minTempLabel.text = [NSString stringWithFormat:@"%@º", currentWeather.tempMin];
 //    self.maxTempLabel.text = [NSString stringWithFormat:@"%@º", currentWeather.tempMax];
-     self.currentTempLabel.text = [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]];
     
     UIImage *image = [UIImage imageNamed:currentWeather.icon];
     [self.skyImageView setImage:image];
@@ -93,15 +95,63 @@
     self.pressureLabel.text = [NSString stringWithFormat:@"%.1f psi", [currentWeather.pressure floatValue]];
     self.windSpeedLabel.text = [NSString stringWithFormat:@"%.0f km/h", [currentWeather.windSpeed floatValue]];
     
+    NSLog(@"TEMP OF MAIN %@", [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]]);
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"unidadTemormetrica"]) {
+        self.currentTempLabel.text = [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]];
 
+    }else{
+        
+        self.currentTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[currentWeather.temp floatValue]]];
+
+    }
 }
 
+- (float)getCorrectTemp:(float)temp{
+    
+    temp *= 9;
+    temp /= 5;
+    
+    temp += 32;
+    
+    return temp;
+}
+
+/*!
+ *@Description Método que comprueba si hay conexión a internet. Devuelve True or False, si hay o no
+ conexión.
+ */
+- (BOOL)isConnectionAvailable
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus internetStatus = [reachability currentReachabilityStatus];
+    
+    return internetStatus != NotReachable;
+}
 
 - (IBAction)addCity:(id)sender
 {
-    WFSearchCityViewController *vc = [[WFSearchCityViewController alloc] init];
-    [self presentViewController:vc animated:YES completion:nil];
+   
+    if ([self isConnectionAvailable]) {
+        
+        WFSearchCityViewController *vc = [[WFSearchCityViewController alloc] init];
+        [self presentViewController:vc animated:YES completion:nil];
+        
+    }else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error de conexión", nil)
+                                                        message:NSLocalizedString(@"Comprueba tu red y vuelve a intentarlo", nil)
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+    }
+    
 }
+
+
+
 
 - (IBAction)edit:(id)sender
 {

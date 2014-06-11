@@ -58,8 +58,19 @@
     UIImage *image = [UIImage imageNamed:day.icon];
     [self.morningImageView setImage:image];
     
-    self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.maxTemp floatValue]];
-    self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.minTemp floatValue]];
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"unidadTemormetrica"]) {
+        
+        self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.maxTemp floatValue]];
+        self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.minTemp floatValue]];
+        
+    }else{
+        
+        self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[day.maxTemp floatValue]]];
+        self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[day.minTemp floatValue]]];
+    }
+    
+    
     self.precipitationLabel.text = [NSString stringWithFormat:@"%.1f mm", [day.precipitation floatValue]];
     
     //    [self.windImageView setImageWithURL:[NSURL URLWithString:hour.windImage]];
@@ -68,5 +79,16 @@
     self.afternoonTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.morningTemp floatValue]];
     self.eveningTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.eveningTemp floatValue]];
 }
+
+- (float)getCorrectTemp:(float)temp{
+    
+    temp *= 9;
+    temp /= 5;
+    
+    temp += 32;
+    
+    return temp;
+}
+
 
 @end

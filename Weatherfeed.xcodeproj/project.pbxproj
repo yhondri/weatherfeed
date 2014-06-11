@@ -13,6 +13,9 @@
 		5624516918D0E46B00C65F70 /* WFCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5624516718D0E46B00C65F70 /* WFCoreDataModel.xcdatamodeld */; };
 		5632A41018F68FCD00DC8AD8 /* WFHourCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5632A40F18F68FCD00DC8AD8 /* WFHourCell.xib */; };
 		5632A41218F6E5C400DC8AD8 /* tempWeatherImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 5632A41118F6E5C400DC8AD8 /* tempWeatherImage.png */; };
+		563775F7194892E60063457E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 563775F6194892E60063457E /* Reachability.m */; };
+		563775F9194897E90063457E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 563775F8194897E90063457E /* SystemConfiguration.framework */; };
+		5637760519489A870063457E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5637760719489A870063457E /* Localizable.strings */; };
 		564A44781896BAE6009B07ED /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 564A44771896BAE6009B07ED /* Foundation.framework */; };
 		564A447A1896BAE6009B07ED /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 564A44791896BAE6009B07ED /* CoreGraphics.framework */; };
 		564A447C1896BAE6009B07ED /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 564A447B1896BAE6009B07ED /* UIKit.framework */; };
@@ -86,6 +89,17 @@
 		5624516818D0E46B00C65F70 /* WFCoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WFCoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		5632A40F18F68FCD00DC8AD8 /* WFHourCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WFHourCell.xib; sourceTree = "<group>"; };
 		5632A41118F6E5C400DC8AD8 /* tempWeatherImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tempWeatherImage.png; sourceTree = "<group>"; };
+		563775F0194888CD0063457E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		563775F2194889DE0063457E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		563775F5194892E60063457E /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		563775F6194892E60063457E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		563775F8194897E90063457E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5637760119489A670063457E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		5637760219489A670063457E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main_iPad.strings; sourceTree = "<group>"; };
+		5637760319489A670063457E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5637760419489A670063457E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5637760619489A870063457E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5637760819489A8C0063457E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		563E591418D77857002EE497 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		564A44741896BAE6009B07ED /* Weatherfeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weatherfeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		564A44771896BAE6009B07ED /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -166,6 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				563775F9194897E90063457E /* SystemConfiguration.framework in Frameworks */,
 				565CF8D118FDA0BB0097AD97 /* CoreLocation.framework in Frameworks */,
 				564A447A1896BAE6009B07ED /* CoreGraphics.framework in Frameworks */,
 				564A447E1896BAE6009B07ED /* CoreData.framework in Frameworks */,
@@ -188,6 +203,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		563775F4194892B80063457E /* Connection */ = {
+			isa = PBXGroup;
+			children = (
+				563775F5194892E60063457E /* Reachability.h */,
+				563775F6194892E60063457E /* Reachability.m */,
+			);
+			name = Connection;
+			sourceTree = "<group>";
+		};
 		564A446B1896BAE6009B07ED = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +234,9 @@
 		564A44761896BAE6009B07ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				563775F8194897E90063457E /* SystemConfiguration.framework */,
+				563775F2194889DE0063457E /* CoreTelephony.framework */,
+				563775F0194888CD0063457E /* CFNetwork.framework */,
 				563E591418D77857002EE497 /* CoreLocation.framework */,
 				564A44771896BAE6009B07ED /* Foundation.framework */,
 				564A44791896BAE6009B07ED /* CoreGraphics.framework */,
@@ -242,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				5632A41118F6E5C400DC8AD8 /* tempWeatherImage.png */,
+				5637760719489A870063457E /* Localizable.strings */,
 				564FBBA718FED3E7002C722F /* windArrow.png */,
 				564A44811896BAE6009B07ED /* Weatherfeed-Info.plist */,
 				564A44821896BAE6009B07ED /* InfoPlist.strings */,
@@ -299,6 +327,7 @@
 				E8977258190418A700425CE3 /* Main */,
 				E877556F1913119E009AFD0B /* Search */,
 				E8977259190418B100425CE3 /* City */,
+				563775F4194892B80063457E /* Connection */,
 			);
 			name = ViewsController;
 			sourceTree = "<group>";
@@ -455,6 +484,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 564A446B1896BAE6009B07ED;
 			productRefGroup = 564A44751896BAE6009B07ED /* Products */;
@@ -482,6 +512,7 @@
 				562435EE18F2B0E900268032 /* WFCityViewController.xib in Resources */,
 				564A44901896BAE6009B07ED /* Main_iPad.storyboard in Resources */,
 				E89772501903EE7500425CE3 /* 03d@2x.png in Resources */,
+				5637760519489A870063457E /* Localizable.strings in Resources */,
 				E897724F1903EE7500425CE3 /* 02n@2x.png in Resources */,
 				E897724E1903EE7500425CE3 /* 02d@2x.png in Resources */,
 				E89772521903EE7500425CE3 /* 04d@2x.png in Resources */,
@@ -524,6 +555,7 @@
 				5624363D18F3091E00268032 /* WFPageViewController.m in Sources */,
 				5624516918D0E46B00C65F70 /* WFCoreDataModel.xcdatamodeld in Sources */,
 				E89772351903455B00425CE3 /* WFCurrentWeather.m in Sources */,
+				563775F7194892E60063457E /* Reachability.m in Sources */,
 				565D1AAD18FBE04100FCB104 /* WFDaysTVController.m in Sources */,
 				E897722F1903455B00425CE3 /* WFHour.m in Sources */,
 				E897722C1903455B00425CE3 /* WFWeatherInfo.m in Sources */,
@@ -559,10 +591,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		5637760719489A870063457E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5637760619489A870063457E /* en */,
+				5637760819489A8C0063457E /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		564A44821896BAE6009B07ED /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				564A44831896BAE6009B07ED /* en */,
+				5637760319489A670063457E /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -571,6 +613,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				564A448F1896BAE6009B07ED /* Base */,
+				5637760219489A670063457E /* es */,
 			);
 			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
@@ -579,6 +622,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				564A44AC1896BAE6009B07ED /* en */,
+				5637760419489A670063457E /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -587,6 +631,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				569BD05D189ABA4E00000965 /* Base */,
+				5637760119489A670063457E /* es */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";

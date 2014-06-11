@@ -12,7 +12,7 @@
 
 @class WFMainViewController;
 
-@interface WFMainViewController : WFViewController <UITableViewDelegate, CLLocationManagerDelegate>
+@interface WFMainViewController : WFViewController <UITableViewDelegate, CLLocationManagerDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *cityNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentTempLabel;

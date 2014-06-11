@@ -57,14 +57,32 @@
     UIImage *image = [UIImage imageNamed:hour.icon];
     [self.weatherImageView setImage:image];
     
-    self.tempLabel.text = [NSString stringWithFormat:@"%.0fº", [hour.temp floatValue]];
-    self.precipitationLabel.text = [NSString stringWithFormat:@"%.1f mm", [hour.precipitation floatValue]];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"unidadTemormetrica"]) {
+        self.tempLabel.text =  [NSString stringWithFormat:@"%.0fº", [hour.temp floatValue]];
+    }else{
+        self.tempLabel.text =  [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[hour.temp floatValue]]];
+    }
+    
     
 //    [self.windImageView setImageWithURL:[NSURL URLWithString:hour.windImage]];
     self.windLabel.text = [NSString stringWithFormat:@"%@ km/h", hour.windSpeed];
     
     self.humidityLabel.text = [NSString stringWithFormat:@"%@ %%", hour.humidity];
     self.pressureLabel.text = [NSString stringWithFormat:@"%@ pas", hour.pressure];
+    
+    self.precipitationLabel.text = [NSString stringWithFormat:@"%@ m.m", hour.precipitation];
 }
+
+- (float)getCorrectTemp:(float)temp{
+    
+    temp *= 9;
+    temp /= 5;
+    
+    temp += 32;
+    
+    return temp;
+}
+
+
 
 @end

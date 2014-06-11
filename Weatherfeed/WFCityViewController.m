@@ -91,8 +91,21 @@
     NSLog(@"CURRENT WEATHER DATA HAS BEEN UPDATED");
     
     WFCurrentWeather *currentWeather = self.city.currentWeather;
+    WFDay *today = [self.dailyTVC.fetchedResultsController.fetchedObjects firstObject];
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"unidadTemormetrica"]) {
+        
+        self.currentTempLabel.text = [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]];
+        self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [today.maxTemp floatValue]];
+        self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [today.minTemp floatValue]];
+        
+    }else{
+        
+        self.currentTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[currentWeather.temp floatValue]]];
+        self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[today.maxTemp floatValue]]];
+        self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[today.minTemp floatValue]]];
+    }
     
-    self.currentTempLabel.text = [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]];
     self.cityNameLabel.text = self.city.name;
     
     self.weatherImageView.image = [UIImage imageNamed:currentWeather.icon];
@@ -100,10 +113,15 @@
     self.humidityLabel.text = [NSString stringWithFormat:@"%.0f%%", [currentWeather.humidity floatValue]];
     self.pressureLabel.text = [NSString stringWithFormat:@"%.1f psi", [currentWeather.pressure floatValue]];
     self.windSpeedLabel.text = [NSString stringWithFormat:@"%.0f km/h", [currentWeather.windSpeed floatValue]];
+
+}
+
+- (float)getCorrectTemp:(float)temp{
     
-    WFDay *today = [self.dailyTVC.fetchedResultsController.fetchedObjects firstObject];
-    self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [today.maxTemp floatValue]];
-    self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [today.minTemp floatValue]];
+    temp *= 9 / 5;
+    temp += 32;
+    
+    return temp;
 }
 
 - (IBAction)periodSegmentControlChanged:(UISegmentedControl*)sender {

@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  Weatherfeed
+
+  Created by Yhondri Josue Acosta Novas on 11/06/14.
+  Copyright (c) 2014 Codegy. All rights reserved.
+*/
+
+"Error de conexión" = "Connection error";
+"Comprueba tu red y vuelve a intentarlo" = "Check your connection and try again";
+"Ok" = "Ok";
+"Edit" = "Edit";
