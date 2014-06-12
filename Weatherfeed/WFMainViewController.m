@@ -64,8 +64,6 @@
     self.citiesTableView.scrollIndicatorInsets = UIEdgeInsetsMake(130, 0, 44, 0);
     
     [self reloadCurrentWeatherData];
-    
-
 }
 
 - (void)viewDidAppear:(BOOL)animated
