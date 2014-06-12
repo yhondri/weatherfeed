@@ -10,6 +10,9 @@
 #import "WFCitySearcher.h"
 #import "WFCityCell.h"
 
+
+NSString * const WFWeatherEngineDidAddNewCityNotification = @"WFWeatherEngineDidAddNewCityNotification";
+
 @interface WFSearchCityViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
@@ -73,7 +76,7 @@
     
     [WFCitySearcher saveResult:result];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"WFWeatherEngineDidAddNewCityNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:WFWeatherEngineDidAddNewCityNotification object:nil];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }

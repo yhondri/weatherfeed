@@ -65,6 +65,10 @@ NSString * const WFCitySearcherSearchCityURL = @"http://api.openweathermap.org/d
 {
     NSManagedObjectContext *context = [[WFAppDelegate sharedAppDelegate] managedObjectContext];
     
+    if ([self cityExits:result]) {
+        return;
+    }
+    
     WFCity *newCity = [NSEntityDescription insertNewObjectForEntityForName:@"City" inManagedObjectContext:context];
     
     newCity.addedDate = [NSDate date];
@@ -75,6 +79,18 @@ NSString * const WFCitySearcherSearchCityURL = @"http://api.openweathermap.org/d
     [context save:nil];
     
     [WFWeatherEngine updateWeatherDataForCity:newCity];
+}
+
++ (BOOL)cityExits:(WFSearchResult*)result
+{
+    NSManagedObjectContext *context = [[WFAppDelegate sharedAppDelegate] managedObjectContext];
+    
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"City"];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"idNumber == %@", result.idNumber]];
+    
+    NSInteger count = [context countForFetchRequest:fetchRequest error:nil];
+    
+    return (count > 0);
 }
 
 @end

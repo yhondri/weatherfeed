@@ -11,6 +11,7 @@
 #import "WFWeatherEngine.h"
 #import "WFHoursTVController.h"
 #import "WFDaysTVController.h"
+#import "WFSettingsTVController.h"
 
 #import "WFCity.h"
 #import "WFCurrentWeather.h"
@@ -50,9 +51,19 @@
     if (self = [super init]) {
         
         self.city = city;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(updateTemperatures)
+                                                     name:WFSettingsTVControllerChangedCelsius
+                                                   object:nil];
     }
     
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad
@@ -85,6 +96,12 @@
     [self reloadCurrentWeatherData];
 }
 
+- (void)updateTemperatures
+{
+    [self reloadCurrentWeatherData];
+    [self.hoursTableView reloadData];
+    [self.daysTableView reloadData];
+}
 
 - (void)reloadCurrentWeatherData
 {
@@ -93,17 +110,16 @@
     WFCurrentWeather *currentWeather = self.city.currentWeather;
     WFDay *today = [self.dailyTVC.fetchedResultsController.fetchedObjects firstObject];
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"unidadTemormetrica"]) {
-        
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseCelsius"]) {
         self.currentTempLabel.text = [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]];
         self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [today.maxTemp floatValue]];
         self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [today.minTemp floatValue]];
         
-    }else{
-        
-        self.currentTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[currentWeather.temp floatValue]]];
-        self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[today.maxTemp floatValue]]];
-        self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[today.minTemp floatValue]]];
+    }
+    else {
+        self.currentTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getFarenheit:[currentWeather.temp floatValue]]];
+        self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getFarenheit:[today.maxTemp floatValue]]];
+        self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getFarenheit:[today.minTemp floatValue]]];
     }
     
     self.cityNameLabel.text = self.city.name;
@@ -116,7 +132,7 @@
 
 }
 
-- (float)getCorrectTemp:(float)temp{
+- (float)getFarenheit:(float)temp{
     
     temp *= 9 / 5;
     temp += 32;

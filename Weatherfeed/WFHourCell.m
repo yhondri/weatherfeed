@@ -57,10 +57,11 @@
     UIImage *image = [UIImage imageNamed:hour.icon];
     [self.weatherImageView setImage:image];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"unidadTemormetrica"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseCelsius"]) {
         self.tempLabel.text =  [NSString stringWithFormat:@"%.0fº", [hour.temp floatValue]];
-    }else{
-        self.tempLabel.text =  [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[hour.temp floatValue]]];
+    }
+    else {
+        self.tempLabel.text =  [NSString stringWithFormat:@"%.0fº", [self getFarenheit:[hour.temp floatValue]]];
     }
     
     
@@ -73,7 +74,7 @@
     self.precipitationLabel.text = [NSString stringWithFormat:@"%@ m.m", hour.precipitation];
 }
 
-- (float)getCorrectTemp:(float)temp{
+- (float)getFarenheit:(float)temp{
     
     temp *= 9;
     temp /= 5;

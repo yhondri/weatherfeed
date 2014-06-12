@@ -8,6 +8,8 @@
 
 #import "WFPageViewController.h"
 #import "WFCityViewController.h"
+#import "WFSearchCityViewController.h"
+#import "WFCitiesTVController.h"
 #import "WFAppDelegate.h"
 #import "WFCity.h"
 #import "WFWeatherEngine.h"
@@ -16,7 +18,6 @@
 @interface WFPageViewController ()
 
 @property (strong, nonatomic) NSArray *cities;
-@property (strong, nonatomic) NSMutableArray *viewControllers;
 @property (assign) BOOL locationFromUser;
 
 @end
@@ -46,8 +47,14 @@
     
     [self reloadPageController];
     
-   [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadPageController) name:@"WFWeatherEngineDidAddNewCityNotification" object:nil];
-    
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(reloadPageController)
+                                                name:WFWeatherEngineDidAddNewCityNotification
+                                              object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(reloadPageController)
+                                                name:WFWeatherEngineDidRemoveCityNotification
+                                              object:nil];
 }
 
 - (void)reloadCities
@@ -66,13 +73,7 @@
 {
     [self reloadCities];
     
-    self.viewControllers = [@[] mutableCopy];
-    [self.viewControllers addObject:[self viewControllerAtIndex:0]];
-    for (int i = 0; i<[self.cities count]; i++) {
-        [self.viewControllers addObject:[self viewControllerAtIndex:i+1]];
-    }
-    
-    [self.pageController setViewControllers:@[self.viewControllers[0]]
+    [self.pageController setViewControllers:@[[self viewControllerAtIndex:0]]
                                   direction:UIPageViewControllerNavigationDirectionForward
                                    animated:NO
                                  completion:nil];
@@ -124,7 +125,7 @@
         index--;
     }
     
-    return self.viewControllers[index];
+    return [self viewControllerAtIndex:index];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
@@ -142,7 +143,7 @@
         index++;
     }
     
-    return self.viewControllers[index];
+    return [self viewControllerAtIndex:index];
 }
 
 @end

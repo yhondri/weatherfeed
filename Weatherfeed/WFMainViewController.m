@@ -14,6 +14,7 @@
 #import "WFCurrentWeather.h"
 #import "WFCitiesTVController.h"
 #import "WFSearchCityViewController.h"
+#import "WFSettingsTVController.h"
 #import "Reachability.h"
 
 @interface WFMainViewController ()
@@ -39,6 +40,11 @@
     [[NSNotificationCenter defaultCenter]addObserver:self
                                             selector:@selector(reloadCurrentWeatherData)
                                                 name:WFWeatherEngineDidUpdateLocationDataNotification
+                                              object:nil];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(updateTemperatures)
+                                                name:WFSettingsTVControllerChangedCelsius
                                               object:nil];
     
     
@@ -74,6 +80,11 @@
     self.citiesTableView.scrollsToTop = NO;
 }
 
+- (void)updateTemperatures
+{
+    [self reloadCurrentWeatherData];
+    [self.citiesTableView reloadData];
+}
 
 - (void)reloadCurrentWeatherData
 {
@@ -97,17 +108,16 @@
     
     NSLog(@"TEMP OF MAIN %@", [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]]);
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"unidadTemormetrica"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseCelsius"]) {
         self.currentTempLabel.text = [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]];
-
-    }else{
-        
-        self.currentTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[currentWeather.temp floatValue]]];
+    }
+    else {
+        self.currentTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getFarenheit:[currentWeather.temp floatValue]]];
 
     }
 }
 
-- (float)getCorrectTemp:(float)temp{
+- (float)getFarenheit:(float)temp{
     
     temp *= 9;
     temp /= 5;
@@ -163,6 +173,13 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     [self.delegate viewController:self didSelectCityAtIndex:indexPath.row];
+}
+
+- (IBAction)goToSettings:(id)sender
+{
+    WFSettingsTVController *settingsVc = [[WFSettingsTVController alloc] init];
+    
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:settingsVc] animated:YES completion:nil];
 }
 
 #warning Activar mensaje de error, al no poder conseguir tu localización.

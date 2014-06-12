@@ -30,7 +30,7 @@
 - (void)setCity:(WFCity*)city
 {
     
-   // [[NSUserDefaults standardUserDefaults] setValue:false forKey:@"unidadTemormetrica"];
+   // [[NSUserDefaults standardUserDefaults] setValue:false forKey:@"UseCelsius"];
     
 
     WFCurrentWeather *currentWeather = city.currentWeather;
@@ -38,10 +38,11 @@
     self.cityNameLabel.text = city.name;
     
     //True Celsius - False Fahrenheit
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"unidadTemormetrica"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseCelsius"]) {
         self.tempLabel.text =  [NSString stringWithFormat:@"%.0fº", [currentWeather.temp floatValue]];
-    }else{
-        self.tempLabel.text =  [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[currentWeather.temp floatValue]]];
+    }
+    else {
+        self.tempLabel.text =  [NSString stringWithFormat:@"%.0fº", [self getFarenheit:[currentWeather.temp floatValue]]];
     }
     
     self.weatherImageView.image = [UIImage imageNamed:currentWeather.icon];
@@ -54,9 +55,7 @@
     self.weatherImageView.image = [UIImage imageNamed:result.icon];
 }
 
-- (float)getCorrectTemp:(float)temp{
-    
-    
+- (float)getFarenheit:(float)temp{
     temp *= 9;
     temp /= 5;
     

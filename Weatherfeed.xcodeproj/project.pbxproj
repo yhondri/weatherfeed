@@ -46,6 +46,8 @@
 		567307EB190037E600CD3920 /* WFCityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 567307E9190037E600CD3920 /* WFCityCell.xib */; };
 		569BD05E189ABA4E00000965 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 569BD05C189ABA4E00000965 /* Main_iPhone.storyboard */; };
 		E80176E61911A9C4004EE6B6 /* WFCitySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E80176E51911A9C4004EE6B6 /* WFCitySearcher.m */; };
+		E8484BC2194A19D6000E3E5D /* WFSettingsTVController.m in Sources */ = {isa = PBXBuildFile; fileRef = E8484BC0194A19D6000E3E5D /* WFSettingsTVController.m */; };
+		E8484BC3194A19D6000E3E5D /* WFSettingsTVController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8484BC1194A19D6000E3E5D /* WFSettingsTVController.xib */; };
 		E87755691912D24F009AFD0B /* WFSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = E87755681912D24F009AFD0B /* WFSearchResult.m */; };
 		E877556D1912EC57009AFD0B /* WFSearchCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E877556B1912EC57009AFD0B /* WFSearchCityViewController.m */; };
 		E877556E1912EC57009AFD0B /* WFSearchCityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E877556C1912EC57009AFD0B /* WFSearchCityViewController.xib */; };
@@ -142,6 +144,9 @@
 		569BD05D189ABA4E00000965 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		E80176E41911A9C4004EE6B6 /* WFCitySearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFCitySearcher.h; sourceTree = "<group>"; };
 		E80176E51911A9C4004EE6B6 /* WFCitySearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFCitySearcher.m; sourceTree = "<group>"; };
+		E8484BBF194A19D6000E3E5D /* WFSettingsTVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFSettingsTVController.h; sourceTree = "<group>"; };
+		E8484BC0194A19D6000E3E5D /* WFSettingsTVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFSettingsTVController.m; sourceTree = "<group>"; };
+		E8484BC1194A19D6000E3E5D /* WFSettingsTVController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WFSettingsTVController.xib; sourceTree = "<group>"; };
 		E87755671912D24F009AFD0B /* WFSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFSearchResult.h; sourceTree = "<group>"; };
 		E87755681912D24F009AFD0B /* WFSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFSearchResult.m; sourceTree = "<group>"; };
 		E877556A1912EC57009AFD0B /* WFSearchCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFSearchCityViewController.h; sourceTree = "<group>"; };
@@ -325,6 +330,7 @@
 				E87755761916FEDA009AFD0B /* WFViewController.h */,
 				E87755771916FEDA009AFD0B /* WFViewController.m */,
 				E8977258190418A700425CE3 /* Main */,
+				E8484BC4194A19DA000E3E5D /* Settings */,
 				E877556F1913119E009AFD0B /* Search */,
 				E8977259190418B100425CE3 /* City */,
 				563775F4194892B80063457E /* Connection */,
@@ -342,6 +348,16 @@
 				565D1AA718FBE02800FCB104 /* WFDayCell.m */,
 			);
 			name = "Days Table View";
+			sourceTree = "<group>";
+		};
+		E8484BC4194A19DA000E3E5D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E8484BBF194A19D6000E3E5D /* WFSettingsTVController.h */,
+				E8484BC0194A19D6000E3E5D /* WFSettingsTVController.m */,
+				E8484BC1194A19D6000E3E5D /* WFSettingsTVController.xib */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		E877556F1913119E009AFD0B /* Search */ = {
@@ -521,6 +537,7 @@
 				E89772531903EE7500425CE3 /* 04n@2x.png in Resources */,
 				564A449B1896BAE6009B07ED /* Images.xcassets in Resources */,
 				E89772541903EE7500425CE3 /* 09d@2x.png in Resources */,
+				E8484BC3194A19D6000E3E5D /* WFSettingsTVController.xib in Resources */,
 				567307EB190037E600CD3920 /* WFCityCell.xib in Resources */,
 				E89772511903EE7500425CE3 /* 03n@2x.png in Resources */,
 				5632A41018F68FCD00DC8AD8 /* WFHourCell.xib in Resources */,
@@ -557,6 +574,7 @@
 				E89772351903455B00425CE3 /* WFCurrentWeather.m in Sources */,
 				563775F7194892E60063457E /* Reachability.m in Sources */,
 				565D1AAD18FBE04100FCB104 /* WFDaysTVController.m in Sources */,
+				E8484BC2194A19D6000E3E5D /* WFSettingsTVController.m in Sources */,
 				E897722F1903455B00425CE3 /* WFHour.m in Sources */,
 				E897722C1903455B00425CE3 /* WFWeatherInfo.m in Sources */,
 				E89772321903455B00425CE3 /* WFCity.m in Sources */,

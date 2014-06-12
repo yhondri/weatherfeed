@@ -59,15 +59,14 @@
     [self.morningImageView setImage:image];
     
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"unidadTemormetrica"]) {
-        
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"UseCelsius"]) {
         self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.maxTemp floatValue]];
         self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.minTemp floatValue]];
         
-    }else{
-        
-        self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[day.maxTemp floatValue]]];
-        self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getCorrectTemp:[day.minTemp floatValue]]];
+    }
+    else {
+        self.maxTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getFarenheit:[day.maxTemp floatValue]]];
+        self.minTempLabel.text = [NSString stringWithFormat:@"%.0fº", [self getFarenheit:[day.minTemp floatValue]]];
     }
     
     
@@ -80,7 +79,7 @@
     self.eveningTempLabel.text = [NSString stringWithFormat:@"%.0fº", [day.eveningTemp floatValue]];
 }
 
-- (float)getCorrectTemp:(float)temp{
+- (float)getFarenheit:(float)temp{
     
     temp *= 9;
     temp /= 5;
